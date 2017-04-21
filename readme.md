@@ -1,5 +1,6 @@
 ﻿
 학습용
+(아리마셍 Intelligence)
 
 # ven
 tcp, udp using iocp version
