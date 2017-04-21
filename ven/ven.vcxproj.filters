@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="include\ven\net\iocp.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\net.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\elapsed_timer.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\thread.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\non_copyable.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\singleton.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\lock.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\str.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\mem.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\session_pool.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\server.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\socket.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\acceptor.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\overlapped.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\auto.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\buf.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\inc.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\tls.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\pool_ptr.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\io_thread.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\slist.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\sov_pool.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\sbuf.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\rbuf.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\buf_array.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\net_state.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\type.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\type.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\obj.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\cpu.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\mem_pool.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\obj.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\lfstack.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\next.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\slist_locker.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\buf.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\heap.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\heapt.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\heapt_list.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\mem.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\mem_alloc.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\memory.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\objs.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\test\type.h">
+      <Filter>include\ven\mem\test</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\buf_conv.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\archive.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\sizer.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\addr.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\func_getter.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\socket_tcp.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\socket_udp.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\socket_listen.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\session_udp.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\session_tcp.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\net_error.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\interface.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{d763578d-39cf-478e-96e1-4c9ed0696263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ven">
+      <UniqueIdentifier>{9541bcfd-d735-4f2b-8e53-e9b2a3deb25c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ven\net">
+      <UniqueIdentifier>{5807dc95-59fa-460e-ab65-3601be4282c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ven\util">
+      <UniqueIdentifier>{60cf41f5-ac72-43a5-8564-343da4a26fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ven\mem">
+      <UniqueIdentifier>{a0175d54-c47b-4d1a-aa31-a517abd1563e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ven\mem\test">
+      <UniqueIdentifier>{1e953089-9f3e-4394-b65a-f7614515f358}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_server", "sample\ven_echo_udp_server\ven_echo_udp_server.vcxproj", "{0B6F0417-B053-4835-AE13-985FEE27DB77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Debug|x64.ActiveCfg = Debug|x64
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Debug|x64.Build.0 = Debug|x64
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Debug|x86.ActiveCfg = Debug|Win32
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Debug|x86.Build.0 = Debug|Win32
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Release|x64.ActiveCfg = Release|x64
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Release|x64.Build.0 = Release|x64
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Release|x86.ActiveCfg = Release|Win32
+		{0B6F0417-B053-4835-AE13-985FEE27DB77}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
