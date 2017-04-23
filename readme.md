@@ -13,8 +13,9 @@ visual studio 2015 (c++11)
 # ...
 아리마셍 Intelligence (AI)
 ven
+
 	금요일(프랑스)
 	venerable : 공경할만한
 	venice : 베니스
 
-DDirori Studio
+
