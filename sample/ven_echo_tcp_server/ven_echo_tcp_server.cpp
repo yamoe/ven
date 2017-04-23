@@ -7,7 +7,7 @@ public:
 
   virtual ven::ui32_t receive_buffer_size() override
   {
-    return (1024 * 64);
+    return (1024 * 8);
   }
 
   virtual void on_recv(ven::Buf& buf) override
@@ -34,7 +34,7 @@ int main()
 
   ven::MemPool* mpool = new ven::MemPool;
   mpool->init({
-    { 64 * 1024,{ 1000, 100 } }, // 64k 1000°³
+    { 8 * 1024,{ 1000, 100 } }, // 64k 1000°³
   });
 
   ven::NetConf nconf;

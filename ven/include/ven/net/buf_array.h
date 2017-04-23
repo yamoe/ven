@@ -28,8 +28,9 @@ namespace ven {
       next_idx_ = 0;
       capacity_ = size;
 
+      ui32_t malloc_size = capacity_ * (sizeof(WSABUF) + sizeof(Mem*));
       m_ = static_cast<byte_t*>(
-        malloc(capacity_ * (sizeof(WSABUF) + sizeof(Mem*)))
+        malloc(malloc_size)
       );
 
       wbs_ = reinterpret_cast<WSABUF*>(m_);

@@ -11,7 +11,7 @@ namespace ven {
 
     ui32_t sov_pool_init_size_ = 300; // send overrapped 객체 생성 수
     ui32_t sov_pool_step_size_ = 100; // send overrapped 객체 증가 수(부족 시)
-    ui32_t sov_pool_arr_size_ = 5000; // send overrapped 객체당 최대 모아보낼 send 수
+    ui32_t sov_pool_arr_size_ = 1000; // send overrapped 객체당 최대 모아보낼 send 수
 
     NetErrorReceiver* err_rcv_ = nullptr; // 에러 수신용 객체
   };
