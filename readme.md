@@ -11,7 +11,7 @@ tcp, udp using iocp version
 visual studio 2015 (c++11)
 
 # ...
-아리마셍 Intelligence (AI)
+
 ven
 
 	금요일(프랑스)
@@ -19,3 +19,4 @@ ven
 	venice : 베니스
 
 
+아리마셍 Intelligence (AI)
