@@ -4,5 +4,7 @@
 
 int main()
 {
+  ven::CrashDump::install();
+  getchar();
   return 0;
 }

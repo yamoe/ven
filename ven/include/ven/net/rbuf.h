@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
@@ -35,7 +35,7 @@ namespace ven {
 
     void check_size(ui32_t packet_size)
     {
-      // ÆĞÅ¶ÀÌ Å« °æ¿ì
+      // íŒ¨í‚·ì´ í° ê²½ìš°
       if (buf_->unit_ < packet_size) {
         change(packet_size * 2);
         return;
@@ -44,13 +44,13 @@ namespace ven {
 
     void check_arrange()
     {
-      // ÁÙÀÏ ¼ö ÀÖ´Â °æ¿ì
+      // ì¤„ì¼ ìˆ˜ ìˆëŠ” ê²½ìš°
       if ((default_size_ < buf_->unit_) && (data_len() < default_size_)) {
         change(default_size_);
         return;
       }
 
-      // °ÅÀÇ °¡µæ Âù °æ¿ì ±³Ã¼
+      // ê±°ì˜ ê°€ë“ ì°¬ ê²½ìš° êµì²´
       if (remain_len() <= remaining_size_to_exchange_) {
         change(buf_->unit_);
         return;

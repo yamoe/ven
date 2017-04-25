@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven
 {
@@ -84,7 +84,7 @@ namespace ven
       addr.set_sockaddr(*remote_addr);
     }
 
-    // AcceptEx() È£ÃâµÈ °æ¿ì¸¸ accept ¹Ş±âÀ§ÇÑ ¼³Á¤
+    // AcceptEx() í˜¸ì¶œëœ ê²½ìš°ë§Œ accept ë°›ê¸°ìœ„í•œ ì„¤ì •
     bool set_conditional_accept(bool b)
     {
       int_t v = (b) ? 1 : 0;

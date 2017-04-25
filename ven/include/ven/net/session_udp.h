@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven
 {
@@ -74,7 +74,7 @@ namespace ven
       return 600;
     }
 
-    // recv ¹öÆÛ Å©±â
+    // recv ë²„í¼ í¬ê¸°
     virtual ui32_t receive_buffer_size() override
     {
       return (1024 * 8); // 8k
@@ -185,8 +185,8 @@ namespace ven
 
       rbuf_.move_tail(bytes);
 
-      // UDP ¶ó¼­ ÆĞÅ¶ÀÌ ÂÉ°³Áö°Å³ª ¹¶ÃÄ¼­ ¿À´Â °æ¿ì°¡ ¾øÀ½
-      // all or nothing or Áßº¹ ¼ö½Å °¡´É
+      // UDP ë¼ì„œ íŒ¨í‚·ì´ ìª¼ê°œì§€ê±°ë‚˜ ë­‰ì³ì„œ ì˜¤ëŠ” ê²½ìš°ê°€ ì—†ìŒ
+      // all or nothing or ì¤‘ë³µ ìˆ˜ì‹  ê°€ëŠ¥
       byte_t* rbuf = rbuf_.head();
       ui32_t rlen = rbuf_.data_len();
 

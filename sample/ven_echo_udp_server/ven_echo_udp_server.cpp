@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 #include <ven/net/net.h>
 
@@ -35,14 +35,14 @@ int main()
 {
   usage();
 
-  // ¸Þ¸ð¸® Ç®
+  // ë©”ëª¨ë¦¬ í’€
   ven::MemPool* mpool = new ven::MemPool;
   mpool->init({
-    { 1 * 1024,{ 1000, 100 } }, // 1k 100°³ »ý¼º. ºÎÁ·½Ã 100°³ »ý¼º
-    { 8 * 1024,{ 1000, 100 } }, // 8k 100°³
+    { 1 * 1024,{ 1000, 100 } }, // 1k 100ê°œ ìƒì„±. ë¶€ì¡±ì‹œ 100ê°œ ìƒì„±
+    { 8 * 1024,{ 1000, 100 } }, // 8k 100ê°œ
   });
 
-  // Net °´Ã¼ »ý¼º
+  // Net ê°ì²´ ìƒì„±
   ven::NetConf nconf;
   nconf.thread_cnt_ = 0;
   nconf.mpool_ = mpool;
@@ -53,7 +53,7 @@ int main()
 
   ven::Net* net = new ven::Net(nconf);
 
-  // ¼­¹ö ½ÃÀÛ
+  // ì„œë²„ ì‹œìž‘
   Session* session = net->run_udp<Session>({ "0.0.0.0", 12000 });
   if (!session) {
     printf("fail run udp server\n");

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
   
@@ -7,7 +7,7 @@ namespace ven {
     ui32_t total_ = 0;
     ui32_t free_ = 0;
     ui32_t conn_ = 0;
-    ui32_t accepting_ = 0; // accept °É·ÁÀÖ´Â °³¼ö
+    ui32_t accepting_ = 0; // accept ê±¸ë ¤ìžˆëŠ” ê°œìˆ˜
   };
 
   class SOVState {

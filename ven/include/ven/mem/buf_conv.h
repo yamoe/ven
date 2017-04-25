@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
@@ -9,15 +9,15 @@ namespace ven {
 
     virtual ~BufConv() {}
 
-    // ÆĞÅ¶À» Buf¿¡ ´ãÀ»‹š ÆĞÅ¶ ±æÀÌ ÀúÀå
+    // íŒ¨í‚·ì„ Bufì— ë‹´ì„Â‹Âš íŒ¨í‚· ê¸¸ì´ ì €ì¥
     virtual void set_size(ui32_t size) = 0;
 
-    // ÆĞÅ¶, Buf°£ º¹»ç½Ã ¼öÇà
+    // íŒ¨í‚·, Bufê°„ ë³µì‚¬ì‹œ ìˆ˜í–‰
     virtual void serialize(Archive& ar) = 0;
 
     Buf make_buf(IMemPool& mpool)
     {
-      // Å©±â °è»ê
+      // í¬ê¸° ê³„ì‚°
       Archive ar(Archive::Size);
       serialize(ar);
 
@@ -27,12 +27,12 @@ namespace ven {
         return Buf();
       }
 
-      // ¹öÆÛ ÇÒ´ç
+      // ë²„í¼ í• ë‹¹
       Buf buf = mpool.get(size);
       if (!buf) return buf;
       buf.len_ = size;
 
-      // ¹öÆÛ ÆĞÅ¶  ¾²±â
+      // ë²„í¼ íŒ¨í‚·  ì“°ê¸°
       ar.set(buf, Archive::Write);
       serialize(ar);
       return ar.buf();

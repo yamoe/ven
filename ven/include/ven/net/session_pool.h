@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
@@ -11,10 +11,10 @@ namespace ven {
     NetData nd_;
     void* user_data_ = nullptr;
 
-    ui32_t pre_cnt_ = 0;  // ¼³Á¤: ¹Ì¸® »ı¼º
-    ui32_t inc_cnt_ = 0;  // ¼³Á¤: Áõ°¡ °³¼ö
-    ui32_t max_cnt_ = 0;  // ¼³Á¤: ÃÖ´ë Áõ°¡
-    ui32_t total_cnt_ = 0; // ÇöÀç »ı¼ºµÈ °³¼ö
+    ui32_t pre_cnt_ = 0;  // ì„¤ì •: ë¯¸ë¦¬ ìƒì„±
+    ui32_t inc_cnt_ = 0;  // ì„¤ì •: ì¦ê°€ ê°œìˆ˜
+    ui32_t max_cnt_ = 0;  // ì„¤ì •: ìµœëŒ€ ì¦ê°€
+    ui32_t total_cnt_ = 0; // í˜„ì¬ ìƒì„±ëœ ê°œìˆ˜
 
     SLock lock_;
     SList<SessionTCP> free_;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
@@ -6,14 +6,14 @@ namespace ven {
   class NetConf
   {
   public:
-    ui32_t thread_cnt_ = 0; // 0ÀÎ °æ¿ì (cpu core * 2) + 1
-    MemPool* mpool_ = nullptr;  // nullptrÀÎ °æ¿ì Net °´Ã¼¾È¿¡¼­ »ı¼º
+    ui32_t thread_cnt_ = 0; // 0ì¸ ê²½ìš° (cpu core * 2) + 1
+    MemPool* mpool_ = nullptr;  // nullptrì¸ ê²½ìš° Net ê°ì²´ì•ˆì—ì„œ ìƒì„±
 
-    ui32_t sov_pool_init_size_ = 300; // send overrapped °´Ã¼ »ı¼º ¼ö
-    ui32_t sov_pool_step_size_ = 100; // send overrapped °´Ã¼ Áõ°¡ ¼ö(ºÎÁ· ½Ã)
-    ui32_t sov_pool_arr_size_ = 1000; // send overrapped °´Ã¼´ç ÃÖ´ë ¸ğ¾Æº¸³¾ send ¼ö
+    ui32_t sov_pool_init_size_ = 300; // send overrapped ê°ì²´ ìƒì„± ìˆ˜
+    ui32_t sov_pool_step_size_ = 100; // send overrapped ê°ì²´ ì¦ê°€ ìˆ˜(ë¶€ì¡± ì‹œ)
+    ui32_t sov_pool_arr_size_ = 1000; // send overrapped ê°ì²´ë‹¹ ìµœëŒ€ ëª¨ì•„ë³´ë‚¼ send ìˆ˜
 
-    NetErrorReceiver* err_rcv_ = nullptr; // ¿¡·¯ ¼ö½Å¿ë °´Ã¼
+    NetErrorReceiver* err_rcv_ = nullptr; // ì—ëŸ¬ ìˆ˜ì‹ ìš© ê°ì²´
   };
 
 
@@ -21,11 +21,11 @@ namespace ven {
   {
   public:
     Addr addr_ = { "0.0.0.0", 12001 };  // listen ip,port
-    ui32_t accept_cnt_ = 200;  // accept °É¾îµÑ ¼¼¼Ç ¼ö
-    ui32_t session_pre_cnt_ = 200;  // ¹Ì¸® »ı¼ºÇÒ ¼¼¼Ç ¼ö
-    ui32_t session_inc_cnt_ = 100;  // ¼¼¼Ç Áõ°¡ ´ÜÀ§
-    ui32_t session_max_cnt_ = 20000;  // ÃÖ´ë ¼¼¼Ç ¼ö
-    void* session_user_data_ = nullptr; // ¼¼¼Ç °´Ã¼¿¡ Àü´ŞÇÒ »ç¿ëÀÚ µ¥ÀÌÅÍ (user_data() ¸Ş¼Òµå·Î Á¢±Ù°¡´É)
+    ui32_t accept_cnt_ = 200;  // accept ê±¸ì–´ë‘˜ ì„¸ì…˜ ìˆ˜
+    ui32_t session_pre_cnt_ = 200;  // ë¯¸ë¦¬ ìƒì„±í•  ì„¸ì…˜ ìˆ˜
+    ui32_t session_inc_cnt_ = 100;  // ì„¸ì…˜ ì¦ê°€ ë‹¨ìœ„
+    ui32_t session_max_cnt_ = 20000;  // ìµœëŒ€ ì„¸ì…˜ ìˆ˜
+    void* session_user_data_ = nullptr; // ì„¸ì…˜ ê°ì²´ì— ì „ë‹¬í•  ì‚¬ìš©ì ë°ì´í„° (user_data() ë©”ì†Œë“œë¡œ ì ‘ê·¼ê°€ëŠ¥)
   };
 
   class IOCP;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 namespace ven
 {
@@ -94,13 +94,6 @@ namespace ven
       err_rcv_->on_error(buf);
     }
   };
-
-  static cchar_t* filename(cchar_t* file)
-  {
-    cchar_t* p = strrchr(file, '\\');
-    if (p) return p + 1;
-    return file;
-  }
 
 #define NET_FFL filename(__FILE__), __FUNCTION__, __LINE__
 

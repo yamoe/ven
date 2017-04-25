@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
   namespace test {
@@ -75,7 +75,7 @@ namespace ven {
       {
         return (
           (mem_size_ * cnt) + // Mem 
-          (unit * cnt)  // Mem °´Ã¼¿¡¼­ »ç¿ëÇÒ ¸Ş¸ğ¸®
+          (unit * cnt)  // Mem ê°ì²´ì—ì„œ ì‚¬ìš©í•  ë©”ëª¨ë¦¬
           );
       }
 

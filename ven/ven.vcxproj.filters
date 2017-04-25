@@ -24,9 +24,6 @@
     <ClInclude Include="include\ven\util\lock.h">
       <Filter>include\ven\util</Filter>
     </ClInclude>
-    <ClInclude Include="include\ven\util\str.h">
-      <Filter>include\ven\util</Filter>
-    </ClInclude>
     <ClInclude Include="include\ven\mem\mem.h">
       <Filter>include\ven\mem</Filter>
     </ClInclude>
@@ -170,6 +167,18 @@
     </ClInclude>
     <ClInclude Include="include\ven\net\interface.h">
       <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\crash_dump.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\stack_trace.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\func.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\file.h">
+      <Filter>include\ven\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

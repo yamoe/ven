@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 #include <ven/net/net.h>
 
@@ -34,7 +34,7 @@ int main()
 
   ven::MemPool* mpool = new ven::MemPool;
   mpool->init({
-    { 8 * 1024,{ 1000, 100 } }, // 64k 1000°³
+    { 8 * 1024,{ 1000, 100 } }, // 64k 1000ê°œ
   });
 
   ven::NetConf nconf;

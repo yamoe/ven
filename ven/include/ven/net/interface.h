@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
@@ -6,25 +6,25 @@ namespace ven {
   {
   public:
 
-    // ¼ö½Å ÆĞÅ¶ »çÀÌÁî
+    // ìˆ˜ì‹  íŒ¨í‚· ì‚¬ì´ì¦ˆ
     virtual bool get_packet_size(byte_t* buf, const ui32_t len, ui32_t& packet_size) = 0;
 
-    // ÀÌ»óÇÑ ÆĞÅ¶ »çÀÌÁîÀÎ °æ¿ì ¿¬°á Á¾·á ¼öÇà
+    // ì´ìƒí•œ íŒ¨í‚· ì‚¬ì´ì¦ˆì¸ ê²½ìš° ì—°ê²° ì¢…ë£Œ ìˆ˜í–‰
     virtual bool is_valid_packet_size(ui32_t size) = 0;
 
-    // ÆĞÅ¶ÀÇ Çì´õ »çÀÌÁî(bytes)
+    // íŒ¨í‚·ì˜ í—¤ë” ì‚¬ì´ì¦ˆ(bytes)
     virtual ui32_t header_size() = 0;
 
-    // ¼ö½Å ¹öÆÛ Å©±â
+    // ìˆ˜ì‹  ë²„í¼ í¬ê¸°
     virtual ui32_t receive_buffer_size() = 0;
 
-    // ¿¬°á
+    // ì—°ê²°
     virtual void on_conn() = 0;
 
-    // ¿¬°á Á¾·á
+    // ì—°ê²° ì¢…ë£Œ
     virtual void on_disc(ui32_t err) = 0;
 
-    // ¼ö½Å
+    // ìˆ˜ì‹ 
     virtual void on_recv(ven::Buf& buf) = 0;
   };
 
@@ -34,16 +34,16 @@ namespace ven {
   public:
 
     /*
-    ¼ö½ÅÇÏ·Á´Â udp ÆĞÅ¶ Å©±âº¸´Ù recv °É¸®´Â ¹öÆÛ Å©±â°¡ ÀÛÀ¸¸é
-    GQCS recv ¿¡¼­ ERROR_NO_DATA(232) ¹ß»ıÇÏ¹Ç·Î
-    »ç¿ëÇÏ´Â UDP ÆĞÅ¶ÀÇ ÃÖ´ë Å©±â¸¦ Àâ¾ÆÁÖ¾î¾ß ÇÔ
+    ìˆ˜ì‹ í•˜ë ¤ëŠ” udp íŒ¨í‚· í¬ê¸°ë³´ë‹¤ recv ê±¸ë¦¬ëŠ” ë²„í¼ í¬ê¸°ê°€ ì‘ìœ¼ë©´
+    GQCS recv ì—ì„œ ERROR_NO_DATA(232) ë°œìƒí•˜ë¯€ë¡œ
+    ì‚¬ìš©í•˜ëŠ” UDP íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ë¥¼ ì¡ì•„ì£¼ì–´ì•¼ í•¨
     */
     virtual ui32_t recv_buf_remaining_size_to_exchange() = 0;
 
-    // ¼ö½Å ¹öÆÛ Å©±â
+    // ìˆ˜ì‹  ë²„í¼ í¬ê¸°
     virtual ui32_t receive_buffer_size() = 0;
 
-    // ¼ö½Å
+    // ìˆ˜ì‹ 
     virtual void on_recv(Buf& buf, Addr& addr) = 0;
 
   };

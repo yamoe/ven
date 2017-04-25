@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
   namespace test {
 
-    typedef unsigned __int32 unit_t;  // ¸Þ¸ð¸® ´ÜÀ§
+    typedef unsigned __int32 unit_t;  // ë©”ëª¨ë¦¬ ë‹¨ìœ„
     typedef unsigned long tid_t;  // thread id
 
     class Mem;

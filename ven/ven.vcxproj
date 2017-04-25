@@ -202,7 +202,9 @@
     <ClInclude Include="include\ven\net\socket_listen.h" />
     <ClInclude Include="include\ven\util\auto.h" />
     <ClInclude Include="include\ven\util\cpu.h" />
+    <ClInclude Include="include\ven\util\crash_dump.h" />
     <ClInclude Include="include\ven\util\elapsed_timer.h" />
+    <ClInclude Include="include\ven\util\file.h" />
     <ClInclude Include="include\ven\util\lfstack.h" />
     <ClInclude Include="include\ven\util\lock.h" />
     <ClInclude Include="include\ven\util\next.h" />
@@ -211,7 +213,8 @@
     <ClInclude Include="include\ven\util\singleton.h" />
     <ClInclude Include="include\ven\util\slist.h" />
     <ClInclude Include="include\ven\util\slist_locker.h" />
-    <ClInclude Include="include\ven\util\str.h" />
+    <ClInclude Include="include\ven\util\stack_trace.h" />
+    <ClInclude Include="include\ven\util\func.h" />
     <ClInclude Include="include\ven\util\inc.h" />
     <ClInclude Include="include\ven\util\tls.h" />
     <ClInclude Include="include\ven\util\type.h" />

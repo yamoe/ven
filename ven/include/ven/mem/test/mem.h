@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
   namespace test {
@@ -7,8 +7,8 @@ namespace ven {
       : public Next<Mem>
     {
     public:
-      byte_t* addr_ = nullptr;  // ÇÒ´ç¹ŞÀº ¸Ş¸ğ¸®
-      unit_t unit_ = 0; // ÇÒ´ç¹ŞÀº ¸Ş¸ğ¸® Å©±â
+      byte_t* addr_ = nullptr;  // í• ë‹¹ë°›ì€ ë©”ëª¨ë¦¬
+      unit_t unit_ = 0; // í• ë‹¹ë°›ì€ ë©”ëª¨ë¦¬ í¬ê¸°
 
       IMemory* memory_ = nullptr;
       tid_t tid_ = 0;

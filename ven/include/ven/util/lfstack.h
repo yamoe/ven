@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
   /*
   lock free LIFO stack
-  ±¸ÇöÀÌ Á¤È®ÇÏÁö ¾ÊÀ½
-  Thread °æÇÕÀÌ ¸¹Àº °æ¿ì CPU »ç¿ë·®ÀÌ ÈÎ¾À ¸¹À½
+  êµ¬í˜„ì´ ì •í™•í•˜ì§€ ì•ŠìŒ
+  Thread ê²½í•©ì´ ë§ì€ ê²½ìš° CPU ì‚¬ìš©ëŸ‰ì´ í›¨ì”¬ ë§ìŒ
   */
   template <class T>
   class LFStack

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven
 {
@@ -38,8 +38,8 @@ namespace ven
 
     bool disable_udp_connreset()
     {
-      // Å¬¶ó Á¢¼ÓÀÌ ²÷±â¸é recvfrom ¿¡¼­ 10054°¡ ¹ß»ı °¡´ÉÇÏ¹Ç·Î SIO_UDP_CONNRESET ¿É¼Ç Àû¿ë.
-      // ÇØ´ç ¿É¼Ç ¹Ì»ç¿ë½Ã recvfromÀÌ ¼º°øÇÒ¶§±îÁö Àç½ÃµµÇØ¾ß ÇÔ
+      // í´ë¼ ì ‘ì†ì´ ëŠê¸°ë©´ recvfrom ì—ì„œ 10054ê°€ ë°œìƒ ê°€ëŠ¥í•˜ë¯€ë¡œ SIO_UDP_CONNRESET ì˜µì…˜ ì ìš©.
+      // í•´ë‹¹ ì˜µì…˜ ë¯¸ì‚¬ìš©ì‹œ recvfromì´ ì„±ê³µí• ë•Œê¹Œì§€ ì¬ì‹œë„í•´ì•¼ í•¨
       // https://support.microsoft.com/ko-kr/help/263823/winsock-recvfrom-now-returns-wsaeconnreset-instead-of-blocking-or-timing-out
 
       BOOL value = FALSE;

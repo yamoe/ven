@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 
 namespace ven {
 
   class SOVPool {
   private:
-    ui32_t init_cnt_ = 100; // ÃÊ±â »ı¼º ¼ö
-    ui32_t step_cnt_ = 100; // Áõ°¨ ´ÜÀ§
-    ui32_t del_cnt_ = 100; // ÃÊ±â »ı¼º ¼ö
-    ui32_t arr_cnt_ = 5000; // SOV ´ç BufArray °³¼ö
+    ui32_t init_cnt_ = 100; // ì´ˆê¸° ìƒì„± ìˆ˜
+    ui32_t step_cnt_ = 100; // ì¦ê° ë‹¨ìœ„
+    ui32_t del_cnt_ = 100; // ì´ˆê¸° ìƒì„± ìˆ˜
+    ui32_t arr_cnt_ = 5000; // SOV ë‹¹ BufArray ê°œìˆ˜
 
     SLock lock_;
     SList<SOV> free_;
