@@ -30,6 +30,8 @@ void usage()
 
 int main()
 {
+  ven::CrashDump::install();
+
   usage();
 
   ven::MemPool* mpool = new ven::MemPool;

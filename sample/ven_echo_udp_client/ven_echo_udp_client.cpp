@@ -85,6 +85,8 @@ void usage()
 
 int main()
 {
+  ven::CrashDump::install();
+
   usage();
 
   ven::Net* net = new ven::Net;

@@ -33,6 +33,8 @@ void usage()
 
 int main()
 {
+  ven::CrashDump::install();
+
   usage();
 
   // 메모리 풀
