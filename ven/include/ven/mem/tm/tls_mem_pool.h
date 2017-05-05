@@ -1,22 +1,11 @@
 ﻿#pragma once
 
-#include "../../util/inc.h"
-
-#include "type.h"
-#include "objs.h"
-#include "mem.h"
-#include "buf.h"
-#include "mem_alloc.h"
-#include "heap.h"
-#include "heapt.h"
-#include "heapt_list.h"
-
 namespace ven {
-  namespace test {
+  namespace tm {
 
-    class Memory
-      : public Singleton<Memory>
-      , public IMemory
+    class TlsMemPool
+      : public Singleton<TlsMemPool>
+      , public IMemPool
     {
     private:
       Auto<Heap> heap_;
@@ -27,10 +16,10 @@ namespace ven {
       unit_t max_unit_ = 0;
 
     public:
-      Memory() {}
-      ~Memory() {}
+      TlsMemPool() {}
+      virtual ~TlsMemPool() {}
 
-      virtual void init(MemConf conf) override
+      void init(MemConf conf)
       {
         if (heap_) return;
 
@@ -56,7 +45,7 @@ namespace ven {
         Heapt* tm = get_thread_mem();
         Mem* mem = tm->pop(size);
 
-        mem->memory_ = this;
+        mem->mpool_ = this;
         mem->ref_ = 0;
 
         return mem;
@@ -95,7 +84,7 @@ namespace ven {
         Mem* mem = new Mem;
         mem->addr_ = static_cast<byte_t*>(malloc(size));
         mem->unit_ = size;
-        mem->memory_ = this;
+        mem->mpool_ = this;
         return mem;
       }
 
@@ -120,27 +109,27 @@ namespace ven {
 
     static void init(MemConf conf = MemConf())
     {
-      Memory::inst().init(conf);
+      TlsMemPool::inst().init(conf);
     }
 
     static void uninit()
     {
-      Memory::uninst();
+      TlsMemPool::uninst();
     }
 
     static Buf get(unit_t size)
     {
-      return Memory::inst().get(size);
+      return TlsMemPool::inst().get(size);
     }
 
     static MemState state()
     {
-      return Memory::inst().state();
+      return TlsMemPool::inst().state();
     }
 
-    static Memory& inst()
+    static TlsMemPool& inst()
     {
-      return Memory::inst();
+      return TlsMemPool::inst();
     }
 
   }

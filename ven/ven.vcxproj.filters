@@ -105,33 +105,6 @@
     <ClInclude Include="include\ven\util\slist_locker.h">
       <Filter>include\ven\util</Filter>
     </ClInclude>
-    <ClInclude Include="include\ven\mem\test\buf.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\heap.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\heapt.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\heapt_list.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\mem.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\mem_alloc.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\memory.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\objs.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ven\mem\test\type.h">
-      <Filter>include\ven\mem\test</Filter>
-    </ClInclude>
     <ClInclude Include="include\ven\mem\buf_conv.h">
       <Filter>include\ven\mem</Filter>
     </ClInclude>
@@ -180,6 +153,45 @@
     <ClInclude Include="include\ven\util\file.h">
       <Filter>include\ven\util</Filter>
     </ClInclude>
+    <ClInclude Include="include\ven\util\char_array.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\logger.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\time.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\heap.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\heapt.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\heapt_list.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\mem_alloc.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\objs.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\type.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\inc.h">
+      <Filter>include\ven\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\mem\tm\tls_mem_pool.h">
+      <Filter>include\ven\mem\tm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\net\inc.h">
+      <Filter>include\ven\net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ven\util\win_service.h">
+      <Filter>include\ven\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -201,7 +213,7 @@
     <Filter Include="include\ven\mem">
       <UniqueIdentifier>{a0175d54-c47b-4d1a-aa31-a517abd1563e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\ven\mem\test">
+    <Filter Include="include\ven\mem\tm">
       <UniqueIdentifier>{1e953089-9f3e-4394-b65a-f7614515f358}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

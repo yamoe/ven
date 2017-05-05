@@ -2,42 +2,31 @@
 
 namespace ven {
 
-  struct SymbolInfo : public SYMBOL_INFO
-  {
-    char_t buffer_[256] = { 0, };
-
-    SymbolInfo()
-    {
-      memset(this, 0x00, sizeof(*this));
-      MaxNameLen = static_cast<ULONG>(sizeof(buffer_) - 1);
-      SizeOfStruct = sizeof(SYMBOL_INFO);
-    }
-  };
-
-
-  struct ImageHlpLine : public IMAGEHLP_LINE
-  {
-    ImageHlpLine()
-    {
-      memset(this, 0x00, sizeof(*this));
-      SizeOfStruct = sizeof(IMAGEHLP_LINE);
-    }
-  };
-
-
-  struct StackFrame : public STACKFRAME
-  {
-    StackFrame()
-    {
-      memset(this, 0x00, sizeof(*this));
-    }
-  };
-
-
   class SymbolFinder
   {
   private:
     HANDLE handle_;
+
+    struct SymbolInfo : public SYMBOL_INFO
+    {
+      char_t buffer_[256] = { 0, };
+
+      SymbolInfo()
+      {
+        memset(this, 0x00, sizeof(*this));
+        MaxNameLen = static_cast<ULONG>(sizeof(buffer_) - 1);
+        SizeOfStruct = sizeof(SYMBOL_INFO);
+      }
+    };
+
+    struct ImageHlpLine : public IMAGEHLP_LINE
+    {
+      ImageHlpLine()
+      {
+        memset(this, 0x00, sizeof(*this));
+        SizeOfStruct = sizeof(IMAGEHLP_LINE);
+      }
+    };
 
   public:
     SymbolFinder()
@@ -47,9 +36,10 @@ namespace ven {
       SymSetOptions(SYMOPT_LOAD_LINES);
     }
 
-    std::string get(void* addr)
+    template <int size>
+    void get(void* addr, CharArray<size>& carr)
     {
-      if (!addr) return "";
+      if (!addr) return;
 
       char_t module_path[MAX_PATH] = { 0, };
       get_module_path(handle_, addr, module_path);
@@ -58,23 +48,19 @@ namespace ven {
       ImageHlpLine line;
       get_symbol_line(handle_, addr, sinfo, line);
 
-
-      std::string str;
-      str += make_str("%p", addr);
+      carr.add("%p", addr);
       if (sinfo.NameLen != 0) {
-        str += make_str("  %s", sinfo.Name);
+        carr.add("  %s", sinfo.Name);
       }
 
       if (module_path) {
-        str += make_str("  %s", filename(module_path));
+        carr.add("  %s", filename(module_path));
       }
 
       if (line.FileName) {
-        str += make_str("(%s:%d)", filename(line.FileName), line.LineNumber);
+        carr.add("(%s:%d)", filename(line.FileName), line.LineNumber);
       }
-      str += "\n";
-
-      return str;
+      carr.add("\n");
     }
 
   private:
@@ -125,6 +111,14 @@ namespace ven {
   private:
     SymbolFinder symbol_finder_;
 
+    struct StackFrame : public STACKFRAME
+    {
+      StackFrame()
+      {
+        memset(this, 0x00, sizeof(*this));
+      }
+    };
+
   public:
     StackTrace() {}
 
@@ -146,17 +140,18 @@ namespace ven {
       StackFrame stx;
       set_stack_frame(ctx, stx);
 
-      std::string str;
+      CharArray<8192> carr;
       for (int i = 0; i < depth; ++i) {
         if (!next(ctx, stx)) {
           break;
         }
 
-        str += symbol_finder_.get(
-          reinterpret_cast<void*>(stx.AddrPC.Offset)
+        symbol_finder_.get(
+          reinterpret_cast<void*>(stx.AddrPC.Offset),
+          carr
         );
       }
-      return str;
+      return carr;
     }
 
     std::string trace_using_capture(int_t depth = 64)
@@ -166,16 +161,16 @@ namespace ven {
       ULONG hash = 0;
       int_t cnt = CaptureStackBackTrace(0, depth, addrs, &hash);
 
-      std::string str;
+      CharArray<8192> carr;
       for (int_t i = 1; i < cnt && i < depth; ++i) {
-        str += symbol_finder_.get(
-          addrs[i]
+        symbol_finder_.get(
+          addrs[i], carr
         );
       }
 
       delete[] addrs;
 
-      return str;
+      return carr;
     }
 
   private:

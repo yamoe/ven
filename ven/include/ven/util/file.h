@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-namespace ven
-{
+namespace ven {
 
   class File
   {
@@ -28,36 +27,61 @@ namespace ven
     void open(const std::wstring& path)
     {
       close();
-      handle_ = CreateFileW(path.c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+      handle_ = CreateFileW(
+        path.c_str(),
+        GENERIC_WRITE,
+        0,
+        NULL,
+        CREATE_ALWAYS,
+        FILE_FLAG_WRITE_THROUGH,
+        NULL
+      );
     }
 
     void close()
     {
-      if (vaild()) {
+      if (valid()) {
         CloseHandle(handle_);
         handle_ = INVALID_HANDLE_VALUE;
       }
     }
 
-    bool write(const std::string& content)
+    void write(const std::string& content)
     {
-      if (!vaild()) return false;
+      if (!valid()) return;
 
       DWORD writed = 0;
-      return (WriteFile(handle_, content.c_str(), static_cast<DWORD>(content.size()), &writed, 0) == TRUE);
+      WriteFile(
+        handle_,
+        content.c_str(),
+        static_cast<DWORD>(content.size()),
+        &writed,
+        0
+      );
+      FlushFileBuffers(handle_);
+    }
+
+    template <int size>
+    void write(CharArray<size>& carr)
+    {
+      if (!valid()) return;
+
+      DWORD writed = 0;
+      WriteFile(
+        handle_,
+        carr.ch(),
+        static_cast<DWORD>(carr.len()),
+        &writed,
+        0
+      );
+      FlushFileBuffers(handle_);
     }
 
     operator HANDLE() { return handle_; }
 
-    operator bool()
-    {
-      return vaild();
-    }
+    operator bool() { return valid(); }
 
-    bool vaild()
-    {
-      return (handle_ != INVALID_HANDLE_VALUE);
-    }
+    bool valid() { return (handle_ != INVALID_HANDLE_VALUE); }
 
   };
 

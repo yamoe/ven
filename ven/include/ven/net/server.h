@@ -8,7 +8,7 @@ namespace ven {
   {
   private:
     IOCP& iocp_;
-    MemPool& mpool_;
+    IMemPool& mpool_;
     SOVPool& sov_pool_;
 
     SessionPool<SessionT> spool_;
@@ -22,7 +22,7 @@ namespace ven {
     Server(
       NetErrorReceiver* err_rcv,
       IOCP& iocp,
-      MemPool& mpool,
+      IMemPool& mpool,
       SOVPool& sov_pool,
       ServerConf& conf
     )

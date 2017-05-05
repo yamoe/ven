@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 
-#include <ven/net/net.h>
+#include <ven/net/inc.h>
 
 class Session : public ven::SessionUDP {
 public:
@@ -24,7 +24,7 @@ void usage()
 {
   printf(
     "  echo server usage : \n"
-    "    listen : 0.0.0.0:1200\n"
+    "    listen : 0.0.0.0:12000\n"
     "    enter : print state\n"
     "    esc : exit\n"
     "\n\n"

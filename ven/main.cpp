@@ -1,10 +1,9 @@
 ﻿#include "stdafx.h"
 
-#include <ven/net/net.h>
+#include <ven/net/inc.h>
 
-int main()
+int main(int argc, char *argv[])
 {
-  ven::CrashDump::install();
-  getchar();
   return 0;
 }
+

@@ -6,10 +6,15 @@ namespace ven {
 
   class Mem;
   class Buf;
+  class MemState;
   class IMemPool {
+  public:
+    IMemPool() {}
+    virtual ~IMemPool() {}
   public:
     virtual Buf get(unit_t size) = 0;
     virtual void ret(Mem* mem) = 0;
+    virtual MemState state() = 0;
   };
 
 
@@ -28,16 +33,17 @@ namespace ven {
   typedef std::map<unit_t, MemConf> MemPoolConf;
 
 
-
-  class UnitMemState {
+  class UnitMemState
+  {
   public:
     ui32_t total_ = 0;
+    ui32_t wait_ = 0; //TlsMemPool 사용시만 쓰임
     ui32_t free_ = 0;
     ui32_t use_ = 0;
   };
 
-
-  class MemState {
+  class MemState
+  {
   public:
     typedef std::map<unit_t, UnitMemState> Units;
     Units units_;
@@ -58,8 +64,8 @@ namespace ven {
         auto& us = kv.second;
 
         s += make_str(
-          "  %u - total : %u, free : %u, use : %u\n",
-          unit, us.total_, us.free_, us.use_
+          "  %u - total : %u, wait : %u, free : %u, use : %u\n",
+          unit, us.total_, us.wait_, us.free_, us.use_
         );
       }
       printf("%s", s.c_str());

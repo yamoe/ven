@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-namespace ven
-{
+namespace ven {
 
   class SessionUDP
     : public ISessionUDP
@@ -23,7 +22,7 @@ namespace ven
     int_t client_addr_size_ = sizeof(client_addr_);
 
     IOCP* iocp_ = nullptr;
-    MemPool* mpool_ = nullptr;
+    IMemPool* mpool_ = nullptr;
 
     std::atomic<bool> is_receiving_ = false;
     std::atomic<bool> force_close_ = false;
@@ -63,7 +62,7 @@ namespace ven
       return true;
     }
 
-    MemPool& mpool()
+    IMemPool& mpool()
     {
       return *mpool_;
     }
@@ -83,7 +82,7 @@ namespace ven
 
   private:
     bool init(
-      NetErrorReceiver* err_rcv, IOCP* iocp, MemPool* mpool,
+      NetErrorReceiver* err_rcv, IOCP* iocp, IMemPool* mpool,
       const Addr& bind_addr, const Addr& connect_addr, void* user_data
     )
     {

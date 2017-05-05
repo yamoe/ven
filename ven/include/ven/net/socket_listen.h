@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-namespace ven
-{
+namespace ven {
 
   class SocketListen
     : public Socket

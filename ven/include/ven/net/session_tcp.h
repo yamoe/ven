@@ -112,7 +112,7 @@ namespace ven {
     }
 
 
-    MemPool& mpool()
+    IMemPool& mpool()
     {
       return *nd_.mpool_;
     }

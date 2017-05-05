@@ -10,7 +10,7 @@ namespace ven {
     Buf buf_;
     byte_t* head_ = nullptr;
     byte_t* tail_ = nullptr;
-    MemPool* mpool_ = nullptr;
+    IMemPool* mpool_ = nullptr;
 
   public:
     RBuf() {}
@@ -58,7 +58,7 @@ namespace ven {
     }
 
     void init(
-      MemPool* mpool,
+      IMemPool* mpool,
       ui32_t buffer_size,
       ui32_t remaining_size_to_exchange
     )

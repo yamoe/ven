@@ -1,37 +1,5 @@
 ﻿#pragma once
 
-#include "../mem/mem_pool.h"
-
-#include "type.h"
-
-#include "addr.h"
-#include "interface.h"
-#include "obj.h"
-#include "func_getter.h"
-#include "net_error.h"
-
-#include "net_state.h"
-#include "buf_array.h"
-#include "overlapped.h"
-
-#include "iocp.h"
-#include "sov_pool.h"
-#include "rbuf.h"
-#include "sbuf.h"
-
-#include "socket.h"
-#include "socket_listen.h"
-#include "socket_tcp.h"
-#include "socket_udp.h"
-
-#include "session_tcp.h"
-#include "session_udp.h"
-#include "session_pool.h"
-
-#include "acceptor.h"
-#include "io_thread.h"
-#include "server.h"
-
 namespace ven {
 
   class Net
@@ -47,7 +15,7 @@ namespace ven {
     IOCP iocp_;
     std::vector<IOThread*> ths_;
     SOVPool sov_pool_;
-    Auto<MemPool> mpool_;
+    Auto<IMemPool> mpool_;
     Auto<NetErrorReceiver> err_rcv_;
 
   public:
@@ -209,7 +177,7 @@ namespace ven {
       return s;
     }
 
-    MemPool& mpool()
+    IMemPool& mpool()
     {
       return *mpool_;
     }
@@ -303,13 +271,14 @@ namespace ven {
         mpool_.not_mine();
       }
       else {
-        mpool_ = new MemPool;
-        mpool_->init({
+        MemPool* mpool = new MemPool;
+        mpool->init({
           { 1 * 1024,{ 100, 100 } }, // 1k 100개 생성. 부족시 100개 생성
           { 2 * 1024,{ 100, 100 } }, // 2k 100개
           { 4 * 1024,{ 100, 100 } }, // 4k 100개
           { 8 * 1024,{ 1000, 100 } }, // 8k 100개
         });
+        mpool_ = mpool;
       }
     }
 

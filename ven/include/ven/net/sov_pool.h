@@ -62,11 +62,11 @@ namespace ven {
     {
       VEN_LOCKER(lock_);
 
-      if (free_.cnt() >= del_cnt_) {
-        total_cnt_--;
-        delete sov;
-        return;
-      }
+      //if (free_.cnt() >= del_cnt_) {
+      //  total_cnt_--;
+      //  delete sov;
+      //  return;
+      //}
       _push(sov);
     }
 

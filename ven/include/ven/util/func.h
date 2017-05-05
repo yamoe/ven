@@ -9,6 +9,17 @@ namespace ven {
     strncpy_s(d, s, size - 1);
   }
 
+  template <size_t size>
+  static void copy(cwchar_t* s, wchar_t(&d)[size])
+  {
+    wcsncpy_s(d, s, size - 1);
+  }
+
+  static void copy(cwchar_t* s, wchar_t* d, int size)
+  {
+    wcsncpy_s(d, size, s, size - 1);
+  }
+
   template <size_t size = 1024>
   static std::string make_str(char_t* format, ...)
   {
@@ -99,6 +110,16 @@ namespace ven {
     return str;
   }
 
+  static std::string binary_filename()
+  {
+    return filename(binary_path().c_str());
+  }
+
+  static std::wstring binary_wfilename()
+  {
+    return filename(binary_wpath().c_str());
+  }
+
   static bool mkdir(const std::wstring& path)
   {
     wchar_t buf[1024] = { 0, };
@@ -168,5 +189,10 @@ namespace ven {
   }
 
 #pragma endregion
+
+  static bool has_console()
+  {
+    return (GetStdHandle(STD_INPUT_HANDLE) != NULL);
+  }
 
 }

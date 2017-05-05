@@ -7,7 +7,7 @@ namespace ven {
   {
   public:
     ui32_t thread_cnt_ = 0; // 0인 경우 (cpu core * 2) + 1
-    MemPool* mpool_ = nullptr;  // nullptr인 경우 Net 객체안에서 생성
+    IMemPool* mpool_ = nullptr;  // nullptr인 경우 Net 객체안에서 생성
 
     ui32_t sov_pool_init_size_ = 300; // send overrapped 객체 생성 수
     ui32_t sov_pool_step_size_ = 100; // send overrapped 객체 증가 수(부족 시)
@@ -34,7 +34,7 @@ namespace ven {
   {
   public:
     IOCP* iocp_ = nullptr;
-    MemPool* mpool_ = nullptr;
+    IMemPool* mpool_ = nullptr;
     SOVPool* sov_pool_ = nullptr;
     IAcceptor* acpt_ = nullptr;
   };

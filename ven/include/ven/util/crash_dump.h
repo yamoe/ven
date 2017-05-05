@@ -3,8 +3,7 @@
 #include <signal.h>
 #include <new.h>
 
-namespace ven
-{
+namespace ven {
 
   class CrashDump
   {
@@ -151,7 +150,6 @@ namespace ven
 
     static int new_handler(size_t size)
     {
-      // TODO size 를 남기면 좋겠는데?
       handler(EXCEPTION_OUT_OF_MEMORY);
       return 0;
     }
@@ -240,24 +238,16 @@ namespace ven
         cnt
       );
 
-      File file(path + L".txt");
-      if (!file) {
-        printf("invalid info filel : %d\n", GetLastError());
-      }
+      File info_file(path + L".txt");
 
-      // write time
-      file.write(
-        make_str(
+      // write time and exception code
+      info_file.write(
+        CharArray<1024>().add(
           "\n%04d-%02d-%02d %02d:%02d:%02d.%03d (%d)\n",
           now.wYear, now.wMonth, now.wDay,
           now.wHour, now.wMinute, now.wSecond, now.wMilliseconds,
           cnt
-        )
-      );
-
-      // write exception code
-      file.write(
-        make_str(
+        ).add(
           "\n%s(0x%08X)\n\n",
           ecode(param.ep_->ExceptionRecord->ExceptionCode),
           param.ep_->ExceptionRecord->ExceptionCode
@@ -265,15 +255,15 @@ namespace ven
       );
 
       // write stack trace
-      file.write(
+      info_file.write(
         StackTrace().trace(param.ep_->ContextRecord)
       );
 
       // write minidump file
       File dump_file(path + L".dmp");
       if (!dump_file) {
-        file.write(
-          make_str("\n\nfail open dump file : %d\n\n", GetLastError())
+        info_file.write(
+          CharArray<256>().add("\n\nfail open dump file : %d\n\n", GetLastError())
         );
       } else {
 
@@ -291,8 +281,8 @@ namespace ven
           NULL,
           NULL
         ) == FALSE) {
-          file.write(
-            make_str("\n\nfail write dump file : %d\n\n", GetLastError())
+          info_file.write(
+            CharArray<256>().add("\n\nfail write dump file : %d\n\n", GetLastError())
           );
         }
       }

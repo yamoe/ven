@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 namespace ven {
-  namespace test {
+  namespace tm {
 
     class Heapt {
     private:
@@ -28,12 +28,12 @@ namespace ven {
       std::vector<byte_t*> p_;
 
       Map map_;
-      tid_t tid_;
+      int_t tid_;
 
     public:
       Heapt(MemAlloc& alloc, Heap& heap)
         : alloc_(alloc)
-        , tid_(::GetCurrentThreadId())
+        //, tid_(::GetCurrentThreadId())
       {
         MemConf& conf = heap.conf();
         for (auto& kv : conf) {
@@ -68,7 +68,7 @@ namespace ven {
       {
         HeapMem& hm = get(size);
         Mem* mem = pop(hm);
-        mem->tid_ = tid_;
+        //mem->tid_ = tid_;
         return mem;
       }
 
@@ -77,14 +77,14 @@ namespace ven {
         //HeapMem& hm = get(mem->unit_);
         HeapMem& hm = *map_[mem->unit_];
 
-        if (mem->tid_ == tid_) {
-          hm.wait_.push(mem);
-        }
-        else {
-          hm.free_.push(mem);
-          if (hm.free_.cnt() >= hm.conf_.push_cnt_) {
-            hm.heap_wait_.push(hm.free_);
-          }
+        //if (mem->tid_ == tid_) {
+        //  hm.wait_.push(mem);
+        //  return;
+        //}
+
+        hm.free_.push(mem);
+        if (hm.free_.cnt() >= hm.conf_.push_cnt_) {
+          hm.heap_wait_.push(hm.free_);
         }
       }
 

@@ -1,15 +1,5 @@
 ﻿#pragma once
 
-#include "../util/inc.h"
-
-#include "obj.h"
-#include "sizer.h"
-
-#include "mem.h"
-#include "buf.h"
-#include "archive.h"
-#include "buf_conv.h"
-
 namespace ven {
 
   class MemPool
@@ -39,6 +29,9 @@ namespace ven {
     std::atomic<ui32_t> exceed_del_ = 0;
 
   public:
+    MemPool() {}
+    virtual ~MemPool() {}
+
     void init(MemPoolConf conf = MemPoolConf())
     {
       if (conf.empty()) {
@@ -102,16 +95,16 @@ namespace ven {
 
       Mems& mems = map_[mem->unit_];
 
-      if (mems.free_.cnt() >= mems.del_cnt_) {
-        mems.total_--;
-        del_mem(mem);
-        return;
-      }
+      //if (mems.free_.cnt() >= mems.del_cnt_) {
+      //  mems.total_--;
+      //  del_mem(mem);
+      //  return;
+      //}
 
       mems.free_.push(mem);
     }
     
-    MemState state()
+    virtual MemState state() override
     {
       MemState s;
       s.exceed_new_ = exceed_new_;
@@ -124,7 +117,6 @@ namespace ven {
         ums.free_ = mems.free_.cnt();
         ums.use_ = ums.total_ - ums.free_;
       }
-
       return s;
     }
 

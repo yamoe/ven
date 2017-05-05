@@ -94,11 +94,11 @@ namespace ven {
 
       use_.erase(s);
 
-      if (free_.cnt() >= pre_cnt_) {
-        total_cnt_--;
-        delete s;
-        return;
-      }
+      //if (free_.cnt() >= pre_cnt_) {
+      //  total_cnt_--;
+      //  delete s;
+      //  return;
+      //}
 
       free_.push(s);
     }

@@ -51,11 +51,14 @@
 #include "slist.h"
 #include "slist_locker.h"
 
+
+#include "char_array.h"
 #include "file.h"
 #include "stack_trace.h"
 #include "crash_dump.h"
 
+#include "time.h"
+#include "logger.h"
 
-
-
+#include "win_service.h"
 

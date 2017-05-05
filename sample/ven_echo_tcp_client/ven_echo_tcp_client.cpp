@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 
-#include <ven/net/net.h>
+#include <ven/net/inc.h>
 
 enum class PacketType
 {
