@@ -50,7 +50,7 @@ int main()
     비동기 기록 false
   */
   VENL_INIT(SVR)(
-    new ven::log::DailyLog(18, 00, ven::log::LogLevel::Debug, true, false)
+    new ven::log::DailyLog(18, 30, ven::log::LogLevel::Debug, true, false)
   );
   VENL_I(SVR)("ven echo tcp server");
 
@@ -63,7 +63,7 @@ int main()
 
   // 세션 receive_buffer_size 에 맞춰서 메모리 풀 설정
   ven::IMemPool* mpool = nullptr;
-  if (false) {
+  if (true) {
     ven::MemPool* mp = new ven::MemPool;
     mp->init({
       { 8 * 1024,{ 1000, 100 } }, // 8k 1000개, 100개씩 증가
