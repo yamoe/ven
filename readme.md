@@ -15,3 +15,13 @@
 * visual studio 2015 (c++11)
 * Arimasen Intelligence (AI)
 
+
+# cmake (test)
+> mkdir build
+
+> cd build
+
+> cmake -G"Visual Studio 15 2017 Win64" ..
+
+
+
