@@ -13,15 +13,15 @@ class PacketHeader
   : public ven::BufConv
 {
 public:
-  ven::ui32_t len_ = 0;
+  uint32_t len_ = 0;
   PacketType type_;
-  ven::ui32_t seq_ = 0;
+  uint32_t seq_ = 0;
 public:
   PacketHeader(PacketType type)
     : type_(type)
   {}
 
-  virtual void set_size(ven::ui32_t size) override
+  virtual void set_size(uint32_t size) override
   {
     len_ = size;
   }

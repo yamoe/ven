@@ -8,27 +8,27 @@ namespace ven {
 
       class HeapMem {
       public:
-        unit_t unit_;
+        uint32_t unit_;
         UnitMemConf conf_;
         MemList wait_;
         MemList free_;
         MemListLocker& heap_wait_;
 
       public:
-        HeapMem(unit_t u, UnitMemConf& uc, MemListLocker* lml)
+        HeapMem(uint32_t u, UnitMemConf& uc, MemListLocker* lml)
           : unit_(u)
           , conf_(uc)
           , heap_wait_(*lml)
         {}
       };
 
-      typedef std::map<unit_t, HeapMem*> Map;
+      typedef std::map<uint32_t, HeapMem*> Map;
 
       MemAlloc& alloc_;
-      std::vector<byte_t*> p_;
+      std::vector<uint8_t*> p_;
 
       Map map_;
-      int_t tid_;
+      int32_t tid_;
 
     public:
       Heapt(MemAlloc& alloc, Heap& heap)
@@ -37,7 +37,7 @@ namespace ven {
       {
         MemConf& conf = heap.conf();
         for (auto& kv : conf) {
-          unit_t unit = kv.first;
+          uint32_t unit = kv.first;
           map_[unit] = new HeapMem(
             unit,
             kv.second,
@@ -55,7 +55,7 @@ namespace ven {
       void state(MemState& s)
       {
         for (auto& kv : map_) {
-          unit_t unit = kv.first;
+          uint32_t unit = kv.first;
           HeapMem& hm = *kv.second;
 
           auto& us = s.units_[unit];
@@ -64,7 +64,7 @@ namespace ven {
         }
       }
 
-      Mem* pop(unit_t size)
+      Mem* pop(uint32_t size)
       {
         HeapMem& hm = get(size);
         Mem* mem = pop(hm);
@@ -89,7 +89,7 @@ namespace ven {
       }
 
     private:
-      HeapMem& get(unit_t size)
+      HeapMem& get(uint32_t size)
       {
         return *map_.lower_bound(size)->second;
       }
@@ -133,12 +133,12 @@ namespace ven {
       Mem* pop_from_new(HeapMem& hm)
       {
         MemList ml;
-        byte_t* p = alloc_.new_mem(hm.unit_, hm.conf_.cnt_, ml);
+        uint8_t* p = alloc_.new_mem(hm.unit_, hm.conf_.cnt_, ml);
         p_.push_back(p);
 
-        ui32_t cnt = ml.cnt();
+        uint32_t cnt = ml.cnt();
         if (cnt > hm.conf_.pop_cnt_) {
-          ui32_t ret_cnt = cnt - hm.conf_.pop_cnt_;
+          uint32_t ret_cnt = cnt - hm.conf_.pop_cnt_;
 
           MemList heap_ml;
           ml.pop(ret_cnt, heap_ml);

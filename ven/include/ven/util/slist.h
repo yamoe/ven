@@ -6,7 +6,7 @@ namespace ven {
   class SList
   {
   private:
-    ui32_t cnt_ = 0;
+    uint32_t cnt_ = 0;
     T* start_ = nullptr;
     T* end_ = nullptr;
 
@@ -64,12 +64,12 @@ namespace ven {
       cnt_++;
     }
 
-    void pop(ui32_t cnt, SList& s)
+    void pop(uint32_t cnt, SList& s)
     {
       if (cnt == 0) return;
       if (cnt_ == 0) return;
 
-      ui32_t c = 1;
+      uint32_t c = 1;
       T* e = start_;
       for (; c < cnt; ++c) {
         if (!e->next_) break;
@@ -102,7 +102,7 @@ namespace ven {
       init(s);
     }
 
-    ui32_t cnt()
+    uint32_t cnt()
     {
       return cnt_;
     }

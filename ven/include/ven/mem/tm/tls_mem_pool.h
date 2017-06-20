@@ -13,7 +13,7 @@ namespace ven {
       Tls<Heapt> tls_;
 
       MemAlloc alloc_;
-      unit_t max_unit_ = 0;
+      uint32_t max_unit_ = 0;
 
     public:
       TlsMemPool() {}
@@ -36,7 +36,7 @@ namespace ven {
         heap_ = new Heap(alloc_, conf);
       }
 
-      virtual Buf get(unit_t size) override
+      virtual Buf get(uint32_t size) override
       {
         if (size > max_unit_) {
           return new_mem(size);
@@ -78,11 +78,11 @@ namespace ven {
 
     private:
 
-      Mem* new_mem(unit_t size) {
+      Mem* new_mem(uint32_t size) {
         alloc_.state().exceed_new_++;
 
         Mem* mem = new Mem;
-        mem->addr_ = static_cast<byte_t*>(malloc(size));
+        mem->addr_ = static_cast<uint8_t*>(malloc(size));
         mem->unit_ = size;
         mem->mpool_ = this;
         return mem;
@@ -117,7 +117,7 @@ namespace ven {
       TlsMemPool::uninst();
     }
 
-    static Buf get(unit_t size)
+    static Buf get(uint32_t size)
     {
       return TlsMemPool::inst().get(size);
     }

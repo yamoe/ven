@@ -4,16 +4,16 @@ namespace ven {
   
   class SvrState {
   public:
-    ui32_t total_ = 0;
-    ui32_t free_ = 0;
-    ui32_t conn_ = 0;
-    ui32_t accepting_ = 0; // accept 걸려있는 개수
+    uint32_t total_ = 0;
+    uint32_t free_ = 0;
+    uint32_t conn_ = 0;
+    uint32_t accepting_ = 0; // accept 걸려있는 개수
   };
 
   class SOVState {
   public:
-    ui32_t total_ = 0;
-    ui32_t free_ = 0;
+    uint32_t total_ = 0;
+    uint32_t free_ = 0;
   };
 
   class NetState {

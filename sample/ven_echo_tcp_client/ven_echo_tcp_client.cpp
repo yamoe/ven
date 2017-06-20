@@ -13,7 +13,7 @@ class PacketHeader
   : public ven::BufConv
 {
 public:
-  ven::ui32_t len_ = 0;
+  uint32_t len_ = 0;
   PacketType type_;
 
 public:
@@ -21,7 +21,7 @@ public:
     : type_(type)
   {}
 
-  virtual void set_size(ven::ui32_t size) override
+  virtual void set_size(uint32_t size) override
   {
     len_ = size;
   }
@@ -61,7 +61,7 @@ public:
     printf("connected\n");
   }
 
-  virtual void on_disc(ven::ui32_t err) override
+  virtual void on_disc(uint32_t err) override
   {
     printf("disconnected err : %u\n", err);
   }

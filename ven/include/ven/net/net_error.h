@@ -34,36 +34,36 @@ namespace ven {
 
     template <size_t size = 8192>
     void net_error(
-      cchar_t* msg,
-      cchar_t* file, cchar_t* func, int_t line
+      const char* msg,
+      const char* file, const char* func, int32_t line
     )
     {
       if (!err_rcv_) return;
-      char_t buf[size] = { 0, };
+      char buf[size] = { 0, };
       ven::make_str(buf, "%s. %s (%s:%d)", msg, func, file, line);
       err_rcv_->on_error(buf);
     }
 
     template <size_t size = 8192>
     void net_error(
-      cchar_t* msg, int_t err,
-      cchar_t* file, cchar_t* func, int_t line
+      const char* msg, int32_t err,
+      const char* file, const char* func, int32_t line
     )
     {
       if (!err_rcv_) return;
-      char_t buf[size] = { 0, };
+      char buf[size] = { 0, };
       ven::make_str(buf, "%s[%d]. %s (%s:%d)", msg, err, func, file, line);
       err_rcv_->on_error(buf);
     }
 
     template <size_t size = 8192>
     void net_error(
-      cchar_t* msg, const Addr& addr, int_t err,
-      cchar_t* file, cchar_t* func, int_t line
+      const char* msg, const Addr& addr, int32_t err,
+      const char* file, const char* func, int32_t line
     )
     {
       if (!err_rcv_) return;
-      char_t buf[size] = { 0, };
+      char buf[size] = { 0, };
       ven::make_str(
         buf,
         "%s[%d] (%s:%hd). %s (%s:%d)",
@@ -76,12 +76,12 @@ namespace ven {
 
     template <size_t size = 8192>
     void net_error(
-      cchar_t* msg, const Addr& addr1, const Addr& addr2, int_t err,
-      cchar_t* file, cchar_t* func, int_t line
+      const char* msg, const Addr& addr1, const Addr& addr2, int32_t err,
+      const char* file, const char* func, int32_t line
     )
     {
       if (!err_rcv_) return;
-      char_t buf[size] = { 0, };
+      char buf[size] = { 0, };
       ven::make_str(
         buf,
         "%s[%d] (%s:%hd, %s:%hd). %s (%s:%d)",

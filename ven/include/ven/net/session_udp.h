@@ -19,7 +19,7 @@ namespace ven {
     Addr bind_addr_;
     Addr connect_addr_;
     sockaddr_in client_addr_;
-    int_t client_addr_size_ = sizeof(client_addr_);
+    int32_t client_addr_size_ = sizeof(client_addr_);
 
     IOCP* iocp_ = nullptr;
     IMemPool* mpool_ = nullptr;
@@ -42,9 +42,9 @@ namespace ven {
     {
       sockaddr_in saddr = addr.sockaddr();
 
-      int_t ret = sendto(
+      int32_t ret = sendto(
         sock_,
-        reinterpret_cast<cchar_t*>(buf.buf_),
+        reinterpret_cast<const char*>(buf.buf_),
         buf.len_,
         0,
         reinterpret_cast<struct sockaddr*>(&saddr),
@@ -52,7 +52,7 @@ namespace ven {
       );
 
       if (ret == SOCKET_ERROR) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err == ERROR_SUCCESS) {
           return true;
         }
@@ -68,13 +68,13 @@ namespace ven {
     }
 
   protected:
-    virtual ui32_t recv_buf_remaining_size_to_exchange() override
+    virtual uint32_t recv_buf_remaining_size_to_exchange() override
     {
       return 600;
     }
 
     // recv 버퍼 크기
-    virtual ui32_t receive_buffer_size() override
+    virtual uint32_t receive_buffer_size() override
     {
       return (1024 * 8); // 8k
     }
@@ -120,7 +120,7 @@ namespace ven {
       if (connect_addr_) {
         sockaddr_in addr = connect_addr_.sockaddr();
 
-        int_t ret = connect(
+        int32_t ret = connect(
           sock_,
           reinterpret_cast<sockaddr*>(&addr),
           sizeof(addr)
@@ -156,7 +156,7 @@ namespace ven {
       sock_.close();
     }
 
-    virtual void on_event(err_t err, OV* ov, ui32_t bytes)
+    virtual void on_event(uint32_t err, OV* ov, uint32_t bytes)
     {
       switch (ov->type_) {
       case OVType::Recv:
@@ -168,7 +168,7 @@ namespace ven {
       }
     }
 
-    void _on_recv(err_t err, ui32_t bytes)
+    void _on_recv(uint32_t err, uint32_t bytes)
     {
       is_receiving_ = false;
       if (force_close_) {
@@ -186,8 +186,8 @@ namespace ven {
 
       // UDP 라서 패킷이 쪼개지거나 뭉쳐서 오는 경우가 없음
       // all or nothing or 중복 수신 가능
-      byte_t* rbuf = rbuf_.head();
-      ui32_t rlen = rbuf_.data_len();
+      uint8_t* rbuf = rbuf_.head();
+      uint32_t rlen = rbuf_.data_len();
 
       Buf buf = rbuf_.copy_buf();
       buf.buf_ = rbuf;
@@ -228,7 +228,7 @@ namespace ven {
       DWORD flag = 0;
 
       rov_.reset();
-      int_t ret = WSARecvFrom(
+      int32_t ret = WSARecvFrom(
         sock_,
         &wb,
         1,
@@ -241,7 +241,7 @@ namespace ven {
       );
 
       if (ret == SOCKET_ERROR) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err != ERROR_IO_PENDING) {
           is_receiving_ = false;
           error("recv error", NET_FFL, err);
@@ -251,7 +251,7 @@ namespace ven {
       return true;
     }
 
-    void error(cchar_t* msg, cchar_t* file, cchar_t* func, int_t line, int_t err = WSAGetLastError())
+    void error(const char* msg, const char* file, const char* func, int32_t line, int32_t err = WSAGetLastError())
     {
       if (bind_addr_ && connect_addr_) {
         net_error(msg, bind_addr_, connect_addr_, err, file, func, line);

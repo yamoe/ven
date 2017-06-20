@@ -15,8 +15,8 @@ namespace ven {
     Addr listen_addr_;
 
     SListLocker<AOV> apool_;
-    std::atomic<ui32_t> accepting_cnt_ = 0;
-    std::atomic<ui32_t> connected_cnt_ = 0;
+    std::atomic<uint32_t> accepting_cnt_ = 0;
+    std::atomic<uint32_t> connected_cnt_ = 0;
     std::atomic<bool> is_release_ = false;
 
   public:
@@ -27,11 +27,11 @@ namespace ven {
     void init(
       NetData& nd,
       ISessionPool* spool,
-      ui32_t accept_cnt
+      uint32_t accept_cnt
     ) {
       nd_ = nd;
       spool_ = spool;
-      for (ui32_t i = 0; i < accept_cnt; ++i) {
+      for (uint32_t i = 0; i < accept_cnt; ++i) {
         AOV* aov = new AOV;
         aov->set(this);
         apool_.push(aov);
@@ -51,12 +51,12 @@ namespace ven {
       }
     }
 
-    ui32_t accepting_cnt()
+    uint32_t accepting_cnt()
     {
       return accepting_cnt_;
     }
 
-    ui32_t connected_cnt()
+    uint32_t connected_cnt()
     {
       return connected_cnt_;
     }
@@ -125,7 +125,7 @@ namespace ven {
 
       aov->reset(s);
       if (!sock_.acceptex(aov, s->sock_, aov->buf_)) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err != ERROR_IO_PENDING) {
           return false;
         }
@@ -135,7 +135,7 @@ namespace ven {
       return true;
     }
 
-    virtual void on_event(err_t err, OV* ov, ui32_t bytes) override
+    virtual void on_event(uint32_t err, OV* ov, uint32_t bytes) override
     {
       AOV* aov = static_cast<AOV*>(ov);
 
@@ -160,7 +160,7 @@ namespace ven {
       accept();
     }
     private:
-      void error(cchar_t* msg, cchar_t* file, cchar_t* func, int_t line, int_t err = WSAGetLastError())
+      void error(const char* msg, const char* file, const char* func, int32_t line, int32_t err = WSAGetLastError())
       {
         net_error(msg, listen_addr_, err, file, func, line);
       }

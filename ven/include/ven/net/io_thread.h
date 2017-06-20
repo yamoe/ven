@@ -19,10 +19,10 @@ namespace ven {
   protected:
     virtual void run() override
     {
-      ui32_t bytes = 0;
+      uint32_t bytes = 0;
       OV* ov = nullptr;
       bool ret = false;
-      err_t err = 0;
+      uint32_t err = 0;
 
       while (true) {
         ret = iocp_.get(bytes, ov);

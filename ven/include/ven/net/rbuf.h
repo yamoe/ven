@@ -4,12 +4,12 @@ namespace ven {
 
   class RBuf {
   private:
-    ui32_t default_size_ = 0;
-    ui32_t remaining_size_to_exchange_ = 0;
+    uint32_t default_size_ = 0;
+    uint32_t remaining_size_to_exchange_ = 0;
 
     Buf buf_;
-    byte_t* head_ = nullptr;
-    byte_t* tail_ = nullptr;
+    uint8_t* head_ = nullptr;
+    uint8_t* tail_ = nullptr;
     IMemPool* mpool_ = nullptr;
 
   public:
@@ -17,23 +17,23 @@ namespace ven {
 
     ~RBuf() { uninit(); }
 
-    byte_t* head() { return head_; }
+    uint8_t* head() { return head_; }
 
-    byte_t* tail() { return tail_; }
+    uint8_t* tail() { return tail_; }
 
-    ui32_t data_len() { return static_cast<ui32_t>(tail_ - head_); }
+    uint32_t data_len() { return static_cast<uint32_t>(tail_ - head_); }
 
-    ui32_t remain_len() { return static_cast<ui32_t>((buf_->addr_ + buf_->unit_) - tail_); }
+    uint32_t remain_len() { return static_cast<uint32_t>((buf_->addr_ + buf_->unit_) - tail_); }
 
-    ui32_t use_len() { return static_cast<ui32_t>(tail_ - buf_->addr_); }
+    uint32_t use_len() { return static_cast<uint32_t>(tail_ - buf_->addr_); }
 
-    void move_tail(ui32_t dist) { tail_ += dist; }
+    void move_tail(uint32_t dist) { tail_ += dist; }
 
-    void move_head(ui32_t dist) { head_ += dist; }
+    void move_head(uint32_t dist) { head_ += dist; }
 
     Buf copy_buf() { return buf_; }
 
-    void check_size(ui32_t packet_size)
+    void check_size(uint32_t packet_size)
     {
       // 패킷이 큰 경우
       if (buf_->unit_ < packet_size) {
@@ -59,8 +59,8 @@ namespace ven {
 
     void init(
       IMemPool* mpool,
-      ui32_t buffer_size,
-      ui32_t remaining_size_to_exchange
+      uint32_t buffer_size,
+      uint32_t remaining_size_to_exchange
     )
     {
       mpool_ = mpool;
@@ -80,11 +80,11 @@ namespace ven {
     }
 
   private:
-    void change(ui32_t size)
+    void change(uint32_t size)
     {
       Buf buf = mpool_->get(size);
 
-      ui32_t len = data_len();
+      uint32_t len = data_len();
       if (len > 0) {
         memcpy(buf->addr_, head_, len);
       }

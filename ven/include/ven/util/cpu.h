@@ -2,11 +2,11 @@
 
 namespace ven {
 
-  static ui32_t cpu_count()
+  static uint32_t cpu_count()
   {
     SYSTEM_INFO info;
     GetSystemInfo(&info);
-    return static_cast<ui32_t>(info.dwNumberOfProcessors);
+    return static_cast<uint32_t>(info.dwNumberOfProcessors);
   }
 
 }

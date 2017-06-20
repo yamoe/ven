@@ -97,7 +97,7 @@ namespace ven {
         sock_,
         SOL_SOCKET,
         SO_UPDATE_ACCEPT_CONTEXT,
-        reinterpret_cast<const char_t*>(&listen_socket),
+        reinterpret_cast<const char*>(&listen_socket),
         sizeof(listen_socket)
       );
       return (ret != SOCKET_ERROR);

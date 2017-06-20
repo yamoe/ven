@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <intrin.h>
 #include <signal.h>
 #include <new.h>
 
@@ -224,8 +225,8 @@ namespace ven {
     {
       RunParam& param = *reinterpret_cast<RunParam*>(arg);
 
-      static std::atomic<ui32_t> cnt_ = 0;
-      ui32_t cnt = ++cnt_;
+      static std::atomic<uint32_t> cnt_ = 0;
+      uint32_t cnt = ++cnt_;
 
       SYSTEMTIME now = { 0, };
       GetLocalTime(&now);

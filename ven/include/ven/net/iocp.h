@@ -40,7 +40,7 @@ namespace ven {
       return true;
     }
 
-    bool get(ui32_t& bytes, OV*& ov, DWORD timeout = INFINITE)
+    bool get(uint32_t& bytes, OV*& ov, DWORD timeout = INFINITE)
     {
       ULONG_PTR key = 0;
       return (GetQueuedCompletionStatus(

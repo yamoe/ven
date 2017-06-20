@@ -9,7 +9,7 @@ namespace ven {
 
     struct SymbolInfo : public SYMBOL_INFO
     {
-      char_t buffer_[256] = { 0, };
+      char buffer_[256] = { 0, };
 
       SymbolInfo()
       {
@@ -41,7 +41,7 @@ namespace ven {
     {
       if (!addr) return;
 
-      char_t module_path[MAX_PATH] = { 0, };
+      char module_path[MAX_PATH] = { 0, };
       get_module_path(handle_, addr, module_path);
 
       SymbolInfo sinfo;
@@ -65,7 +65,7 @@ namespace ven {
 
   private:
     template <size_t size>
-    void get_module_path(HANDLE handle, void* addr, char_t(&buf)[size])
+    void get_module_path(HANDLE handle, void* addr, char(&buf)[size])
     {
       size_t module_base = SymGetModuleBase(
         handle,
@@ -124,14 +124,14 @@ namespace ven {
 
     ~StackTrace() {}
 
-    std::string trace(int_t depth = 64)
+    std::string trace(int32_t depth = 64)
     {
       CONTEXT ctx;
       RtlCaptureContext(&ctx);
       return trace(&ctx, depth);
     }
 
-    std::string trace(CONTEXT* ctx, int_t depth = 64)
+    std::string trace(CONTEXT* ctx, int32_t depth = 64)
     {
       if (!ctx) {
         return "";
@@ -154,15 +154,15 @@ namespace ven {
       return carr;
     }
 
-    std::string trace_using_capture(int_t depth = 64)
+    std::string trace_using_capture(int32_t depth = 64)
     {
       void** addrs = new void*[depth];
 
       ULONG hash = 0;
-      int_t cnt = CaptureStackBackTrace(0, depth, addrs, &hash);
+      int32_t cnt = CaptureStackBackTrace(0, depth, addrs, &hash);
 
       CharArray<8192> carr;
-      for (int_t i = 1; i < cnt && i < depth; ++i) {
+      for (int32_t i = 1; i < cnt && i < depth; ++i) {
         symbol_finder_.get(
           addrs[i], carr
         );

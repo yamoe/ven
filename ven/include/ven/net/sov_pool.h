@@ -4,21 +4,21 @@ namespace ven {
 
   class SOVPool {
   private:
-    ui32_t init_cnt_ = 100; // 초기 생성 수
-    ui32_t step_cnt_ = 100; // 증감 단위
-    ui32_t del_cnt_ = 100; // 초기 생성 수
-    ui32_t arr_cnt_ = 5000; // SOV 당 BufArray 개수
+    uint32_t init_cnt_ = 100; // 초기 생성 수
+    uint32_t step_cnt_ = 100; // 증감 단위
+    uint32_t del_cnt_ = 100; // 초기 생성 수
+    uint32_t arr_cnt_ = 5000; // SOV 당 BufArray 개수
 
     SLock lock_;
     SList<SOV> free_;
-    ui32_t total_cnt_ = 0;
+    uint32_t total_cnt_ = 0;
 
   public:
     SOVPool() {}
 
     ~SOVPool() { uninit(); }
 
-    void init(ui32_t init_cnt, ui32_t step_cnt, ui32_t arr_cnt)
+    void init(uint32_t init_cnt, uint32_t step_cnt, uint32_t arr_cnt)
     {
       VEN_LOCKER(lock_);
       init_cnt_ = init_cnt;
@@ -37,12 +37,12 @@ namespace ven {
       }
     }
 
-    ui32_t total_cnt()
+    uint32_t total_cnt()
     {
       return total_cnt_;
     }
 
-    ui32_t free_cnt()
+    uint32_t free_cnt()
     {
       return free_.cnt();
     }
@@ -81,10 +81,10 @@ namespace ven {
       free_.push(sov);
     }
 
-    void create(ui32_t cnt)
+    void create(uint32_t cnt)
     {
       total_cnt_ += cnt;
-      for (ui32_t i = 0; i < cnt; ++i) {
+      for (uint32_t i = 0; i < cnt; ++i) {
         _push(create());
       }
     }

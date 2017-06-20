@@ -14,7 +14,7 @@ namespace ven {
   private:
     Mode mode_;
     Buf buf_;
-    ui32_t pos_ = 0;
+    uint32_t pos_ = 0;
 
   public:
     Archive(Mode mode = Read)
@@ -35,7 +35,7 @@ namespace ven {
       return buf_;
     }
 
-    ui32_t size()
+    uint32_t size()
     {
       return pos_;
     }

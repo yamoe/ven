@@ -8,7 +8,7 @@ namespace ven {
     SOVPool* pool_ = nullptr;
     SOV* sov_ = nullptr;
 
-    ui32_t pop_cnt_ = 0;
+    uint32_t pop_cnt_ = 0;
 
   public:
     SBuf() {}

@@ -18,7 +18,7 @@ namespace ven {
     };
 
     Data* head_ = nullptr;
-    std::atomic<ui32_t> cnt_ = 0;
+    std::atomic<uint32_t> cnt_ = 0;
 
   public:
     LFStack()
@@ -74,7 +74,7 @@ namespace ven {
       }
     }
 
-    ui32_t cnt()
+    uint32_t cnt()
     {
       return cnt_;
     }

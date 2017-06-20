@@ -6,7 +6,7 @@ namespace ven {
     : public Socket
   {
   private:
-    ui32_t buf_len_ = sizeof(sockaddr_in) + 16;
+    uint32_t buf_len_ = sizeof(sockaddr_in) + 16;
 
     LPFN_ACCEPTEX _acceptex = nullptr;
     LPFN_GETACCEPTEXSOCKADDRS _getacceptexsockaddrs = nullptr;
@@ -66,8 +66,8 @@ namespace ven {
     {
       sockaddr_in* local_addr = nullptr;
       sockaddr_in* remote_addr = nullptr;
-      int_t local_len = 0;
-      int_t remote_len = 0;
+      int32_t local_len = 0;
+      int32_t remote_len = 0;
 
       _getacceptexsockaddrs(
         buf,
@@ -86,8 +86,8 @@ namespace ven {
     // AcceptEx() 호출된 경우만 accept 받기위한 설정
     bool set_conditional_accept(bool b)
     {
-      int_t v = (b) ? 1 : 0;
-      int_t ret =
+      int32_t v = (b) ? 1 : 0;
+      int32_t ret =
         ::setsockopt(
           sock_,
           SOL_SOCKET,
@@ -98,7 +98,7 @@ namespace ven {
       return (ret != SOCKET_ERROR);
     }
 
-    bool listen(int_t backlog = 10)
+    bool listen(int32_t backlog = 10)
     {
       return (::listen(sock_, backlog) != SOCKET_ERROR);
     }

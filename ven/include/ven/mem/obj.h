@@ -2,8 +2,6 @@
 
 namespace ven {
 
-  typedef unsigned __int32 unit_t;
-
   class Mem;
   class Buf;
   class MemState;
@@ -12,7 +10,7 @@ namespace ven {
     IMemPool() {}
     virtual ~IMemPool() {}
   public:
-    virtual Buf get(unit_t size) = 0;
+    virtual Buf get(uint32_t size) = 0;
     virtual void ret(Mem* mem) = 0;
     virtual MemState state() = 0;
   };
@@ -20,36 +18,36 @@ namespace ven {
 
   class MemConf {
   public:
-    ui32_t init_cnt_ = 0;
-    ui32_t step_cnt_ = 0;
+    uint32_t init_cnt_ = 0;
+    uint32_t step_cnt_ = 0;
 
   public:
-    MemConf(ui32_t init_cnt, ui32_t step_cnt)
+    MemConf(uint32_t init_cnt, uint32_t step_cnt)
       : init_cnt_(init_cnt)
       , step_cnt_(step_cnt)
     {}
   };
 
-  typedef std::map<unit_t, MemConf> MemPoolConf;
+  typedef std::map<uint32_t, MemConf> MemPoolConf;
 
 
   class UnitMemState
   {
   public:
-    ui32_t total_ = 0;
-    ui32_t wait_ = 0; //TlsMemPool 사용시만 쓰임
-    ui32_t free_ = 0;
-    ui32_t use_ = 0;
+    uint32_t total_ = 0;
+    uint32_t wait_ = 0; //TlsMemPool 사용시만 쓰임
+    uint32_t free_ = 0;
+    uint32_t use_ = 0;
   };
 
   class MemState
   {
   public:
-    typedef std::map<unit_t, UnitMemState> Units;
+    typedef std::map<uint32_t, UnitMemState> Units;
     Units units_;
 
-    ui32_t exceed_new_ = 0;
-    ui32_t exceed_del_ = 0;
+    uint32_t exceed_new_ = 0;
+    uint32_t exceed_del_ = 0;
 
   public:
     void print()
@@ -60,7 +58,7 @@ namespace ven {
       );
 
       for (auto& kv : units_) {
-        unit_t unit = kv.first;
+        uint32_t unit = kv.first;
         auto& us = kv.second;
 
         s += make_str(

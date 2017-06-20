@@ -20,19 +20,19 @@ namespace ven {
         return state_;
       }
 
-      byte_t* new_mem_for_heap(MemConf& conf, MemMap& map)
+      uint8_t* new_mem_for_heap(MemConf& conf, MemMap& map)
       {
         size_t size = 0;
         for (auto& kv : conf) {
           size += mem_size(kv.first, kv.second.cnt_);
         }
 
-        byte_t* p = static_cast<byte_t*>(malloc(size));
+        uint8_t* p = static_cast<uint8_t*>(malloc(size));
 
-        byte_t* b = p;
+        uint8_t* b = p;
         for (auto& kv : conf) {
-          unit_t unit = kv.first;
-          ui32_t cnt = kv.second.cnt_;
+          uint32_t unit = kv.first;
+          uint32_t cnt = kv.second.cnt_;
 
           MemList ml;
           b = set_mem_list(b, unit, cnt, ml);
@@ -43,10 +43,10 @@ namespace ven {
         return p;
       }
 
-      byte_t* new_mem(unit_t unit, ui32_t cnt, MemList& ml)
+      uint8_t* new_mem(uint32_t unit, uint32_t cnt, MemList& ml)
       {
         size_t size = mem_size(unit, cnt);
-        byte_t* p = static_cast<byte_t*>(malloc(size));
+        uint8_t* p = static_cast<uint8_t*>(malloc(size));
 
         set_mem_list(p, unit, cnt, ml);
 
@@ -56,9 +56,9 @@ namespace ven {
 
 
     private:
-      byte_t* set_mem_list(byte_t* p, unit_t unit, ui32_t cnt, MemList& ml)
+      uint8_t* set_mem_list(uint8_t* p, uint32_t unit, uint32_t cnt, MemList& ml)
       {
-        for (ui32_t i = 0; i < cnt; ++i) {
+        for (uint32_t i = 0; i < cnt; ++i) {
           Mem* m = new(p) Mem;
           p += mem_size_;
 
@@ -71,7 +71,7 @@ namespace ven {
         return p;
       }
 
-      size_t mem_size(unit_t unit, ui32_t cnt)
+      size_t mem_size(uint32_t unit, uint32_t cnt)
       {
         return (
           (mem_size_ * cnt) + // Mem 

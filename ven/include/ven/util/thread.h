@@ -5,7 +5,7 @@ namespace ven {
   class Thread : public NonCopyable {
   private:
     HANDLE handle_ = nullptr;
-    ui32_t thread_id_ = 0;
+    uint32_t thread_id_ = 0;
 
   public:
     Thread() {}

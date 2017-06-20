@@ -44,7 +44,7 @@ namespace ven {
       BOOL value = FALSE;
       DWORD bytes = 0;
 
-      int_t ret = WSAIoctl(
+      int32_t ret = WSAIoctl(
         sock_,
         SIO_UDP_CONNRESET,
         &value,

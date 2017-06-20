@@ -78,9 +78,6 @@
     <ClInclude Include="include\ven\net\net_state.h">
       <Filter>include\ven\net</Filter>
     </ClInclude>
-    <ClInclude Include="include\ven\util\type.h">
-      <Filter>include\ven\util</Filter>
-    </ClInclude>
     <ClInclude Include="include\ven\net\type.h">
       <Filter>include\ven\net</Filter>
     </ClInclude>

@@ -20,7 +20,7 @@
 #pragma warning(default : 4091)
 #pragma comment(lib,"DbgHelp.Lib")
 
-
+#include <stdint.h>
 #include <string>
 #include <deque>
 #include <vector>
@@ -33,7 +33,6 @@
 #include <atomic>
 #include <conio.h>
 
-#include "type.h"
 #include "cpu.h"
 #include "elapsed_timer.h"
 #include "non_copyable.h"

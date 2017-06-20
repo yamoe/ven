@@ -5,13 +5,13 @@ namespace ven {
 
     class Heap {
     private:
-      typedef std::map<unit_t, MemListLocker*> Map;
+      typedef std::map<uint32_t, MemListLocker*> Map;
 
       MemAlloc& alloc_;
       MemConf conf_;
 
       Map map_;
-      byte_t* p_ = nullptr;
+      uint8_t* p_ = nullptr;
 
     public:
       Heap(MemAlloc& alloc, MemConf& conf)
@@ -32,7 +32,7 @@ namespace ven {
         p_ = nullptr;
       }
 
-      MemListLocker* get(unit_t unit)
+      MemListLocker* get(uint32_t unit)
       {
         return map_[unit];
       }
@@ -45,7 +45,7 @@ namespace ven {
       void state(MemState& s)
       {
         for (auto& kv : map_) {
-          unit_t unit = kv.first;
+          uint32_t unit = kv.first;
           MemListLocker* lml = kv.second;
 
           s.units_[unit].wait_ += lml->cnt();

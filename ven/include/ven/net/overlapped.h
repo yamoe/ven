@@ -21,7 +21,7 @@ namespace ven {
     Actor() {}
     virtual ~Actor() {}
 
-    virtual void on_event(err_t err, OV* ov, ui32_t bytes) = 0;
+    virtual void on_event(uint32_t err, OV* ov, uint32_t bytes) = 0;
   };
 
 
@@ -82,7 +82,7 @@ namespace ven {
 
   class DOV : public OV {
   public:
-    ui32_t err_ = 0;
+    uint32_t err_ = 0;
 
   public:
     DOV(Actor* actor = nullptr)
@@ -91,7 +91,7 @@ namespace ven {
       OV::actor_ = actor;
     }
 
-    void reset(ui32_t err)
+    void reset(uint32_t err)
     {
       OV::reset();
       err_ = err;

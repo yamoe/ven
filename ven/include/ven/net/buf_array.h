@@ -4,10 +4,10 @@ namespace ven {
 
   class BufArray {
   private:
-    ui32_t capacity_ = 0;
-    ui32_t next_idx_ = 0;
+    uint32_t capacity_ = 0;
+    uint32_t next_idx_ = 0;
 
-    byte_t* m_ = nullptr;
+    uint8_t* m_ = nullptr;
     WSABUF* wbs_ = nullptr;
     Mem** mems_ = nullptr;
 
@@ -21,15 +21,15 @@ namespace ven {
       uninit();
     }
 
-    void reserve(ui32_t size)
+    void reserve(uint32_t size)
     {
       if (m_) return;
 
       next_idx_ = 0;
       capacity_ = size;
 
-      ui32_t malloc_size = capacity_ * (sizeof(WSABUF) + sizeof(Mem*));
-      m_ = static_cast<byte_t*>(
+      uint32_t malloc_size = capacity_ * (sizeof(WSABUF) + sizeof(Mem*));
+      m_ = static_cast<uint8_t*>(
         malloc(malloc_size)
       );
 
@@ -79,14 +79,14 @@ namespace ven {
       return (next_idx_ == 0);
     }
 
-    ui32_t size()
+    uint32_t size()
     {
       return next_idx_;
     }
 
     void clear()
     {
-      for (ui32_t i = 0; i < next_idx_; ++i) {
+      for (uint32_t i = 0; i < next_idx_; ++i) {
         mems_[i]->rel_ref();
       }
       next_idx_ = 0;

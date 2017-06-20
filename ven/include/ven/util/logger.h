@@ -13,7 +13,7 @@ namespace ven {
     };
 
 
-    static char_t* str(LogLevel level)
+    static char* str(LogLevel level)
     {
       switch (level)
       {
@@ -30,11 +30,11 @@ namespace ven {
     class LogInfo
     {
     public:
-      int_t tid_ = 0;
-      cchar_t* func_;
-      cchar_t* file_;
-      cchar_t* filename_;
-      int_t line_;
+      int32_t tid_ = 0;
+      const char* func_;
+      const char* file_;
+      const char* filename_;
+      int32_t line_;
       Time time_;
       LogLevel level_;
       std::string msg_;
@@ -48,7 +48,7 @@ namespace ven {
       FILE* file_ = nullptr;
       std::wstring path_;
 
-      ui64_t size_ = 0;
+      uint64_t size_ = 0;
 
     public:
       LogFile() {}
@@ -58,7 +58,7 @@ namespace ven {
         close();
       }
 
-      ui64_t size()
+      uint64_t size()
       {
         return size_;
       }
@@ -163,7 +163,7 @@ namespace ven {
     class ILogger
     {
     public:
-      virtual void log(cchar_t* func, cchar_t* file, int_t line, LogLevel level, char_t* msg) = 0;
+      virtual void log(const char* func, const char* file, int32_t line, LogLevel level, char* msg) = 0;
       virtual void write(LogInfo& info) = 0;
     };
 
@@ -172,16 +172,16 @@ namespace ven {
     public:
       LogLevel level_ = LogLevel::Off;
       ILogger* logger_ = nullptr;
-      cchar_t* func_ = nullptr;
-      cchar_t* file_ = nullptr;
-      int_t line_ = 0;
+      const char* func_ = nullptr;
+      const char* file_ = nullptr;
+      int32_t line_ = 0;
 
       Log(
         ILogger* logger,
         LogLevel level = LogLevel::Off,
-        cchar_t* func = nullptr,
-        cchar_t* file = nullptr,
-        int_t line = 0
+        const char* func = nullptr,
+        const char* file = nullptr,
+        int32_t line = 0
       )
         : logger_(logger)
         , level_(level)
@@ -191,13 +191,13 @@ namespace ven {
       {}
 
       template <size_t size = 1024>
-      void operator()(char_t* format, ...)
+      void operator()(char* format, ...)
       {
         if (!logger_ || level_ == LogLevel::Off) {
           return;
         }
 
-        char_t buf[size] = { 0, };
+        char buf[size] = { 0, };
         va_list list;
         va_start(list, format);
         vsnprintf_s(buf, size, size - 1, format, list);
@@ -289,7 +289,7 @@ namespace ven {
         }
       }
 
-      Log log(LogLevel level, cchar_t* func, cchar_t* file, int_t line)
+      Log log(LogLevel level, const char* func, const char* file, int32_t line)
       {
         if (level < level_) {
           return Log(nullptr);
@@ -303,7 +303,7 @@ namespace ven {
       }
 
     private:
-      virtual void log(cchar_t* func, cchar_t* file, int_t line, LogLevel level, char_t* msg)
+      virtual void log(const char* func, const char* file, int32_t line, LogLevel level, char* msg)
       {
         LogInfo info;
         info.tid_ = ::GetCurrentThreadId();
@@ -338,8 +338,8 @@ namespace ven {
 
     public:
       DailyLog(
-        int_t hour,
-        int_t min,
+        int32_t hour,
+        int32_t min,
         LogLevel level = LogLevel::Debug,
         bool use_console = true,
         bool async = false
@@ -383,15 +383,15 @@ namespace ven {
     class RollingLog : public LogEvent
     {
     private:
-      ui64_t size_ = 0;
-      ui32_t cnt_ = 0;
+      uint64_t size_ = 0;
+      uint32_t cnt_ = 0;
 
-      ui32_t cur_cnt_ = 0;
+      uint32_t cur_cnt_ = 0;
 
     public:
       RollingLog(
-        ui64_t size, // bytes
-        ui32_t cnt,
+        uint64_t size, // bytes
+        uint32_t cnt,
         LogLevel level = LogLevel::Debug,
         bool use_console = true,
         bool async = false

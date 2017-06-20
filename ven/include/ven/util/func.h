@@ -4,26 +4,26 @@ namespace ven {
 
 #pragma region string
   template <size_t size>
-  static void copy(cchar_t* s, char_t(&d)[size])
+  static void copy(const char* s, char(&d)[size])
   {
     strncpy_s(d, s, size - 1);
   }
 
   template <size_t size>
-  static void copy(cwchar_t* s, wchar_t(&d)[size])
+  static void copy(const wchar_t* s, wchar_t(&d)[size])
   {
     wcsncpy_s(d, s, size - 1);
   }
 
-  static void copy(cwchar_t* s, wchar_t* d, int size)
+  static void copy(const wchar_t* s, wchar_t* d, int size)
   {
     wcsncpy_s(d, size, s, size - 1);
   }
 
   template <size_t size = 1024>
-  static std::string make_str(char_t* format, ...)
+  static std::string make_str(char* format, ...)
   {
-    char_t buf[size] = { 0, };
+    char buf[size] = { 0, };
 
     va_list list;
     va_start(list, format);
@@ -34,7 +34,7 @@ namespace ven {
   }
 
   template <size_t size>
-  static void make_str(char_t(&buf)[size], char_t* format, ...)
+  static void make_str(char(&buf)[size], char* format, ...)
   {
     va_list list;
     va_start(list, format);
@@ -59,46 +59,46 @@ namespace ven {
 
 #pragma region file
 
-  static cchar_t* filename(cchar_t* path)
+  static const char* filename(const char* path)
   {
     if (!path) return path;
 
-    cchar_t* p = strrchr(path, '\\');
+    const char* p = strrchr(path, '\\');
     if (p) return p + 1;
     return path;
   }
 
-  static std::string basedir(cchar_t* path)
+  static std::string basedir(const char* path)
   {
     if (!path) return path;
 
-    cchar_t* p = strrchr(path, L'\\');
+    const char* p = strrchr(path, L'\\');
     if (p) return std::string(path, p);
     return path;
   }
 
-  static cwchar_t* filename(cwchar_t* path)
+  static const wchar_t* filename(const wchar_t* path)
   {
     if (!path) return path;
 
-    cwchar_t* p = wcsrchr(path, L'\\');
+    const wchar_t* p = wcsrchr(path, L'\\');
     if (p) return p + 1;
     return path;
   }
 
 
-  static std::wstring basedir(cwchar_t* path)
+  static std::wstring basedir(const wchar_t* path)
   {
     if (!path) return path;
 
-    cwchar_t* p = wcsrchr(path, L'\\');
+    const wchar_t* p = wcsrchr(path, L'\\');
     if (p) return std::wstring(path, p);
     return path;
   }
 
   static std::string binary_path()
   {
-    char_t str[MAX_PATH] = { 0, };
+    char str[MAX_PATH] = { 0, };
     GetModuleFileNameA(NULL, str, MAX_PATH);
     return str;
   }
@@ -125,7 +125,7 @@ namespace ven {
     wchar_t buf[1024] = { 0, };
 
     size_t len = path.size();
-    cwchar_t* p = path.c_str();
+    const wchar_t* p = path.c_str();
 
     for (size_t i = 0; i < len; i++) {
       buf[i] = *(p + i);

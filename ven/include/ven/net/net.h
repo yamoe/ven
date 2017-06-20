@@ -210,7 +210,7 @@ namespace ven {
       }
     }
 
-    std::string address(const std::string& ip, port_t port)
+    std::string address(const std::string& ip, uint16_t port)
     {
       return make_str("%s:%d", ip.c_str(), port);
     }
@@ -293,13 +293,13 @@ namespace ven {
 
     void init_thread()
     {
-      ui32_t thread_cnt = nconf_.thread_cnt_;
+      uint32_t thread_cnt = nconf_.thread_cnt_;
 
       if (thread_cnt == 0) {
         thread_cnt = (cpu_count() * 2) + 1;
       }
 
-      for (ui32_t i = 0; i < thread_cnt; ++i) {
+      for (uint32_t i = 0; i < thread_cnt; ++i) {
         IOThread* th = new IOThread(iocp_);
         th->set_err_rcv(err_rcv());
         ths_.push_back(th);

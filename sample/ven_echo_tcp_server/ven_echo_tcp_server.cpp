@@ -5,7 +5,7 @@
 class Session : public ven::SessionTCP {
 public:
 
-  virtual ven::ui32_t receive_buffer_size() override
+  virtual uint32_t receive_buffer_size() override
   {
     return (1024 * 8);
   }

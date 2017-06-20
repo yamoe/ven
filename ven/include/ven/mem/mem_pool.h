@@ -14,19 +14,19 @@ namespace ven {
     public:
       MemList free_;
 
-      std::atomic<ui32_t> total_ = 0;
-      ui32_t init_cnt_ = 0;
-      ui32_t step_cnt_ = 0;  //증가량
-      ui32_t del_cnt_ = 0;  //증가량
+      std::atomic<uint32_t> total_ = 0;
+      uint32_t init_cnt_ = 0;
+      uint32_t step_cnt_ = 0;  //증가량
+      uint32_t del_cnt_ = 0;  //증가량
     };
-    typedef std::map<unit_t, Mems> Map;
+    typedef std::map<uint32_t, Mems> Map;
 
     SLock lock_;
     Map map_;
-    unit_t max_unit_ = 0;
+    uint32_t max_unit_ = 0;
 
-    std::atomic<ui32_t> exceed_new_ = 0;
-    std::atomic<ui32_t> exceed_del_ = 0;
+    std::atomic<uint32_t> exceed_new_ = 0;
+    std::atomic<uint32_t> exceed_del_ = 0;
 
   public:
     MemPool() {}
@@ -46,7 +46,7 @@ namespace ven {
       max_unit_ = conf.rbegin()->first;
 
       for (auto& kv : conf) {
-        unit_t unit = kv.first;
+        uint32_t unit = kv.first;
         MemConf& mc = kv.second;
 
         Mems& mems = map_[unit];
@@ -56,13 +56,13 @@ namespace ven {
         mems.step_cnt_ = mc.step_cnt_;
         mems.del_cnt_ = mc.init_cnt_ * 2;
 
-        for (ui32_t i = 0; i < mc.init_cnt_; ++i) {
+        for (uint32_t i = 0; i < mc.init_cnt_; ++i) {
           mems.free_.push(new_mem(unit));
         }
       }
     }
 
-    virtual Buf get(unit_t size) override
+    virtual Buf get(uint32_t size) override
     {
       if (size > max_unit_)
       {
@@ -70,7 +70,7 @@ namespace ven {
       }
 
       auto& kv = map_.lower_bound(size);
-      unit_t unit = kv->first;
+      uint32_t unit = kv->first;
       Mems& mems = kv->second;
 
       Mem* mem = mems.free_.pop();
@@ -121,9 +121,9 @@ namespace ven {
     }
 
   private:
-    Mem* new_mem(unit_t unit) {
+    Mem* new_mem(uint32_t unit) {
       Mem* mem = new Mem;
-      mem->addr_ = static_cast<byte_t*>(malloc(unit));
+      mem->addr_ = static_cast<uint8_t*>(malloc(unit));
       mem->unit_ = unit;
       mem->mpool_ = this;
       return mem;
@@ -134,13 +134,13 @@ namespace ven {
       delete mem;
     }
 
-    void inc_mem(unit_t unit, Mems& mems)
+    void inc_mem(uint32_t unit, Mems& mems)
     {
-      ui32_t cnt = mems.step_cnt_;
+      uint32_t cnt = mems.step_cnt_;
       mems.total_ += cnt;
 
       SList<Mem> slist;
-      for (ui32_t i = 0; i < cnt; ++i) {
+      for (uint32_t i = 0; i < cnt; ++i) {
         slist.push(new_mem(unit));
       }
       mems.free_.push(slist);

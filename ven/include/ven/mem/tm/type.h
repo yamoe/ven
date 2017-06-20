@@ -7,7 +7,7 @@ namespace ven {
   namespace tm {
     template class SList<Mem>;
     typedef SList<Mem> MemList;
-    typedef std::map<unit_t, MemList> MemMap;
+    typedef std::map<uint32_t, MemList> MemMap;
     typedef SListLocker<Mem> MemListLocker;
 
   }

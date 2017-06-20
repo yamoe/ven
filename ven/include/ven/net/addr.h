@@ -6,24 +6,24 @@ namespace ven {
   {
   public:
     ip_t ip_ = { 0, };
-    port_t port_ = 0;
+    uint16_t port_ = 0;
 
   public:
     Addr() {}
 
-    Addr(ip_t& ip, port_t port)
+    Addr(ip_t& ip, uint16_t port)
     {
       copy(ip, ip_);
       port_ = port;
     }
 
-    Addr(cchar_t* ip, port_t port)
+    Addr(const char* ip, uint16_t port)
     {
       copy(ip, ip_);
       port_ = port;
     }
 
-    Addr(const std::string& ip, port_t port)
+    Addr(const std::string& ip, uint16_t port)
     {
       copy(ip.c_str(), ip_);
       port_ = port;
@@ -60,7 +60,7 @@ namespace ven {
 
     bool operator<(const Addr& addr) const
     {
-      int_t r = strcmp(ip_, addr.ip_);
+      int32_t r = strcmp(ip_, addr.ip_);
       if (r == 0) {
         return (port_ < addr.port_);
       }

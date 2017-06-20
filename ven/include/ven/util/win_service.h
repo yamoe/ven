@@ -37,7 +37,7 @@ namespace ven {
     {
     public:
       // 서비스 시작시 호출. return fasle 시 중단
-      virtual bool on_init(int_t argc, wchar_t** argv) { return true; }
+      virtual bool on_init(int32_t argc, wchar_t** argv) { return true; }
 
       // 서비스 수행중 호출. 별도 스레드에서 while 문으로 호출되므로 Sleep 필요
       // return fasle 시 중단
@@ -106,7 +106,7 @@ namespace ven {
       conf().state_ = state;
     }
 
-    static void WINAPI service_main(int_t argc, wchar_t** argv)
+    static void WINAPI service_main(int32_t argc, wchar_t** argv)
     {
 
       Event* evt = conf().evt_;

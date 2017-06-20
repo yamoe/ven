@@ -52,7 +52,7 @@ namespace ven {
       cov_.reset();
       bool ret = sock_.connectex(&cov_, remote_addr_);
       if (!ret) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err != ERROR_IO_PENDING) {
           return false;
         }
@@ -119,28 +119,28 @@ namespace ven {
 
   protected:
     // 수신 패킷 사이즈
-    virtual bool get_packet_size(byte_t* buf, const ui32_t len, ui32_t& packet_size) override
+    virtual bool get_packet_size(uint8_t* buf, const uint32_t len, uint32_t& packet_size) override
     {
       if (len < header_size()) return false;
-      packet_size = *(reinterpret_cast<ui32_t*>(buf));
+      packet_size = *(reinterpret_cast<uint32_t*>(buf));
       return true;
     }
 
     // 이상한 패킷 사이즈인 경우 연결 종료 수행
-    virtual bool is_valid_packet_size(ui32_t size) override
+    virtual bool is_valid_packet_size(uint32_t size) override
     {
       return (size != 0) && (size <= (1024 * 128));
     }
 
 
     // 패킷의 헤더 사이즈(bytes)
-    virtual ui32_t header_size() override
+    virtual uint32_t header_size() override
     {
       return 4;
     }
 
     // 수신 버퍼 크기
-    virtual ui32_t receive_buffer_size() override
+    virtual uint32_t receive_buffer_size() override
     {
       return (1024 * 8);
     }
@@ -149,7 +149,7 @@ namespace ven {
     virtual void on_conn() override {}
 
     // 연결 종료
-    virtual void on_disc(ui32_t err) override {}
+    virtual void on_disc(uint32_t err) override {}
 
   private:
     void set_init(NetErrorReceiver* err_rcv, NetData& nd, void* user_data) {
@@ -180,7 +180,7 @@ namespace ven {
       regist_iocp();
     }
 
-    virtual void on_event(err_t err, OV* ov, ui32_t bytes) override
+    virtual void on_event(uint32_t err, OV* ov, uint32_t bytes) override
     {
       switch (ov->type_) {
       case OVType::Conn: _on_conn(err); break;
@@ -270,7 +270,7 @@ namespace ven {
       
     }
 
-    void _on_recv(err_t err, ui32_t bytes)
+    void _on_recv(uint32_t err, uint32_t bytes)
     {
       if (err != ERROR_SUCCESS || bytes == 0) {
         is_receiving_ = false;
@@ -281,9 +281,9 @@ namespace ven {
       rbuf_.move_tail(bytes);
 
       while (true) {
-        byte_t* rbuf = rbuf_.head();
-        ui32_t rlen = rbuf_.data_len();
-        ui32_t psize = 0;
+        uint8_t* rbuf = rbuf_.head();
+        uint32_t rlen = rbuf_.data_len();
+        uint32_t psize = 0;
 
         if (get_packet_size(rbuf, rlen, psize)) {
           if (!is_valid_packet_size(psize)) {
@@ -323,7 +323,7 @@ namespace ven {
       }
     }
 
-    void _on_send(err_t err, OV* ov, ui32_t bytes)
+    void _on_send(uint32_t err, OV* ov, uint32_t bytes)
     {
       SOV* sov = static_cast<SOV*>(ov);
       sov->slist_.clear();
@@ -371,7 +371,7 @@ namespace ven {
       );
 
       if (ret == SOCKET_ERROR) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err != ERROR_IO_PENDING) {
           is_receiving_ = false;
           _disconnect(err);
@@ -384,7 +384,7 @@ namespace ven {
     {
       DWORD sbytes = 0;
       sov->reset();
-      int_t ret = WSASend(
+      int32_t ret = WSASend(
         sock_,
         sov->slist_.wsabuf(),
         sov->slist_.size(),
@@ -395,7 +395,7 @@ namespace ven {
       );
 
       if (ret == SOCKET_ERROR) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err != ERROR_IO_PENDING) {
           _on_send(err, sov, 0);
           return false;
@@ -404,7 +404,7 @@ namespace ven {
       return true;
     }
 
-    void _disconnect(ui32_t err = 0)
+    void _disconnect(uint32_t err = 0)
     {
       VEN_LOCKER(cd_lock_);
 
@@ -437,7 +437,7 @@ namespace ven {
       }
 
       if (!sock_.disconnectex(&dov_)) {
-        int_t err = WSAGetLastError();
+        int32_t err = WSAGetLastError();
         if (err != ERROR_IO_PENDING) {
           error("session disconnectex", NET_FFL);
           return;
@@ -446,7 +446,7 @@ namespace ven {
 
     }
 
-    void _on_conn(err_t err)
+    void _on_conn(uint32_t err)
     {
       VEN_LOCKER(cd_lock_);
 
@@ -463,7 +463,7 @@ namespace ven {
       _on_conn_init();
     }
 
-    void error(cchar_t* msg, cchar_t* file, cchar_t* func, int_t line)
+    void error(const char* msg, const char* file, const char* func, int32_t line)
     {
       net_error(msg, remote_addr_, WSAGetLastError(), file, func, line);
     }

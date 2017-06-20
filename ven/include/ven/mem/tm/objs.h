@@ -6,12 +6,12 @@ namespace ven {
     class UnitMemConf
     {
     public:
-      ui32_t cnt_ = 0;
-      ui32_t pop_cnt_ = 0;
-      ui32_t push_cnt_ = 0;
+      uint32_t cnt_ = 0;
+      uint32_t pop_cnt_ = 0;
+      uint32_t push_cnt_ = 0;
 
     public:
-      UnitMemConf(ui32_t cnt, ui32_t pop_cnt, ui32_t push_cnt)
+      UnitMemConf(uint32_t cnt, uint32_t pop_cnt, uint32_t push_cnt)
         : cnt_(cnt)
         , pop_cnt_(pop_cnt)
         , push_cnt_(push_cnt)
@@ -19,6 +19,6 @@ namespace ven {
     };
 
 
-    typedef std::map<unit_t, UnitMemConf> MemConf;
+    typedef std::map<uint32_t, UnitMemConf> MemConf;
   }
 }

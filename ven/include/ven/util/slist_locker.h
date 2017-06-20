@@ -21,7 +21,7 @@ namespace ven {
       return lock_;
     }
 
-    ui32_t cnt()
+    uint32_t cnt()
     {
       VEN_LOCKER(lock_);
       return s_.cnt();
@@ -45,7 +45,7 @@ namespace ven {
       s_.push(t);
     }
 
-    void pop(ui32_t cnt, SList<T>& list)
+    void pop(uint32_t cnt, SList<T>& list)
     {
       VEN_LOCKER(lock_);
       s_.pop(cnt, list);
