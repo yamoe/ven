@@ -1,20 +1,19 @@
-﻿
-애인이 퇴근하길 기다리며..
+Waiting for lover ...
 
 
 # ven
 * tcp, udp using iocp
 * ven
 
-	- 금요일(프랑스)
-	- venerable : 공경할만한
-	- venice : 베니스
+	- friday (french)
+	- venerable
+	- venice
 
 
 # development environment
-* visual studio 2015 (c++11)
+* visual studio 2017, c++11
 * Arimasen Intelligence (AI)
-
+* test client : http://www.cgcii.co.kr/index.php?mid=board_eLHH13&document_srl=1936
 
 # cmake (test)
 ```
@@ -22,5 +21,4 @@
 > cd build
 > cmake -G"Visual Studio 15 2017 Win64" ..
 ```
-
 
