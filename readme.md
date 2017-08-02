@@ -1,7 +1,8 @@
 
 ## ven
 * tcp, udp using iocp
-* visual studio solution : compile/visual-studio/ven.sln
+* visual studio solution file : compile/visual-studio/ven.sln
+* compiled file : ven_echo_tcp_server_x64_Release.exe
 
 
 ## development environment
@@ -16,8 +17,7 @@
 > cmake -G"Visual Studio 15 2017 Win64" ..
 ```
 
-
-## Arimasen Intelligence (AI)
+## Arimasen Intelligence (AI) ¤µ¤µ
 * ven
 	- friday (french)
 	- venerable
