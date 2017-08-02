@@ -1,24 +1,25 @@
-Waiting for lover ...
 
-
-# ven
+## ven
 * tcp, udp using iocp
-* ven
-
-	- friday (french)
-	- venerable
-	- venice
+* visual studio solution : compile/visual-studio/ven.sln
 
 
-# development environment
+## development environment
 * visual studio 2017, c++11
-* Arimasen Intelligence (AI)
 * test client : http://www.cgcii.co.kr/index.php?mid=board_eLHH13&document_srl=1936
 
-# cmake (test)
+
+## cmake (test)
 ```
 > mkdir build
 > cd build
 > cmake -G"Visual Studio 15 2017 Win64" ..
 ```
+
+
+## Arimasen Intelligence (AI)
+* ven
+	- friday (french)
+	- venerable
+	- venice
 

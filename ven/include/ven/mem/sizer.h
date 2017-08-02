@@ -22,7 +22,7 @@ namespace ven {
       return size(arr[0]) * cnt;
     }
 
-    template <>
+    //template <>
     static uint32_t size(std::string& v)
     {
       return cnt_size() + static_cast<uint32_t>(v.size());

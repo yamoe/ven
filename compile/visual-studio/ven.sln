@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven", "ven\ven.vcxproj", "{FE76684A-4D56-4E60-90DA-4370D77CE8D8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven", "..\..\ven\ven.vcxproj", "{FE76684A-4D56-4E60-90DA-4370D77CE8D8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_tcp_server", "sample\ven_echo_tcp_server\ven_echo_tcp_server.vcxproj", "{CB17E003-3C0B-4BFE-885B-D0533D7B5ABD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_tcp_server", "..\..\ven-example\ven_echo_tcp_server\ven_echo_tcp_server.vcxproj", "{CB17E003-3C0B-4BFE-885B-D0533D7B5ABD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_tcp_client", "sample\ven_echo_tcp_client\ven_echo_tcp_client.vcxproj", "{78A352D1-8E04-4F17-9C76-85CAF9BFE2BA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_tcp_client", "..\..\ven-example\ven_echo_tcp_client\ven_echo_tcp_client.vcxproj", "{78A352D1-8E04-4F17-9C76-85CAF9BFE2BA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_client", "sample\ven_echo_udp_client\ven_echo_udp_client.vcxproj", "{7566946C-C0E0-4F9C-8C6F-DC09FABDD8B5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_client", "..\..\ven-example\ven_echo_udp_client\ven_echo_udp_client.vcxproj", "{7566946C-C0E0-4F9C-8C6F-DC09FABDD8B5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_server", "sample\ven_echo_udp_server\ven_echo_udp_server.vcxproj", "{0B6F0417-B053-4835-AE13-985FEE27DB77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_server", "..\..\ven-example\ven_echo_udp_server\ven_echo_udp_server.vcxproj", "{0B6F0417-B053-4835-AE13-985FEE27DB77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44B6EC73-6BDF-4EC3-85F3-A9C84EC84064}"
 	ProjectSection(SolutionItems) = preProject

@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(ven)
 
-include(cmake/PrecompiledHeader.cmake)
+include(compile/cmake/PrecompiledHeader.cmake)
 
 set(CMAKE_VERBOSE_MAKEFILE true)
 
@@ -41,7 +41,7 @@ endif()
 include_directories(ven/include)
 
 add_subdirectory(ven)
-add_subdirectory(sample/ven_echo_tcp_client)
-add_subdirectory(sample/ven_echo_tcp_server)
-add_subdirectory(sample/ven_echo_udp_client)
-add_subdirectory(sample/ven_echo_udp_server)
+add_subdirectory(ven-example/ven_echo_tcp_client)
+add_subdirectory(ven-example/ven_echo_tcp_server)
+add_subdirectory(ven-example/ven_echo_udp_client)
+add_subdirectory(ven-example/ven_echo_udp_server)

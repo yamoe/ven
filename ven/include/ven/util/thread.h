@@ -4,8 +4,13 @@ namespace ven {
 
   class Thread : public NonCopyable {
   private:
-    HANDLE handle_ = nullptr;
-    uint32_t thread_id_ = 0;
+    uint64_t thread_id_ = 0;
+#if defined(WINDOWS)
+    HANDLE th_ = nullptr;
+#else
+    std::thread th_;
+#endif
+
 
   public:
     Thread() {}
@@ -14,25 +19,36 @@ namespace ven {
 
     void start()
     {
-      if (handle_) return;
+#if defined(WINDOWS)
+      if (th_) return;
+      uint32_t tid = 0;
       uintptr_t handle = _beginthreadex(
         0,
         0,
         (unsigned(__stdcall*)(void*))run_thread,
         this,
         0,
-        &thread_id_
+        &tid
       );
-      handle_ = reinterpret_cast<HANDLE>(handle);
+      thread_id_ = static_cast<uint64_t>(tid);
+      th_ = reinterpret_cast<HANDLE>(handle);
+#else
+      th_ = std::thread(&Thread::run, this);
+      thread_id_ = ven::tid(th_);
+#endif
     }
 
     void join()
     {
-      if (!handle_) return;
-      WaitForSingleObject(handle_, INFINITE);
+#if defined(WINDOWS)
+      if (!th_) return;
+      WaitForSingleObject(th_, INFINITE);
+#else
+      th_.join();
+#endif
     }
 
-    unsigned int thread_id()
+    uint64_t thread_id()
     {
       return thread_id_;
     }
@@ -40,6 +56,7 @@ namespace ven {
   protected:
     virtual void run() = 0;
 
+#if defined(WINDOWS)
   private:
     static uintptr_t __stdcall run_thread(void* p)
     {
@@ -51,12 +68,14 @@ namespace ven {
 
     void close()
     {
-      if (handle_) {
-        CloseHandle(handle_);
-        handle_ = nullptr;
+      if (th_) {
+        CloseHandle(th_);
+        th_ = nullptr;
       }
     }
+#endif
 
   };
 
 }
+

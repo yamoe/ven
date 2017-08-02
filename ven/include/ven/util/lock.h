@@ -1,30 +1,55 @@
 ﻿#pragma once
 
+#if defined(WINDOWS)
+#else
+# include <pthread>
+#endif
+
 namespace ven {
 
   class SLock {
   private:
-    CRITICAL_SECTION cs_;
+#if defined(WINDOWS)
+    CRITICAL_SECTION lock_;
+#else
+    pthread_spinlock_t lock_;
+#endif
 
   public:
     SLock(unsigned int spin_count = 4000)
     {
-      InitializeCriticalSectionAndSpinCount(&cs_, spin_count);
+#if defined(WINDOWS)
+      InitializeCriticalSectionAndSpinCount(&lock_, spin_count);
+#else
+      pthread_spin_init(&lock_, 0);
+#endif
     }
 
     ~SLock()
     {
-      DeleteCriticalSection(&cs_);
+#if defined(WINDOWS)
+      DeleteCriticalSection(&lock_);
+#else
+      pthread_spin_destroy(&lock_);
+#endif
     }
 
     void lock()
     {
-      EnterCriticalSection(&cs_);
+#if defined(WINDOWS)
+      EnterCriticalSection(&lock_);
+#else
+      pthread_spin_lock(&lock_);
+#endif
     }
 
     void unlock()
     {
-      LeaveCriticalSection(&cs_);
+#if defined(WINDOWS)
+      LeaveCriticalSection(&lock_);
+#else
+      pthread_spin_unlock(&lock_);
+#endif
     }
   };
 

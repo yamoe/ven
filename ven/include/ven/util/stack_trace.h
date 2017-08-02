@@ -1,5 +1,15 @@
 ﻿#pragma once
 
+#if defined(WINDOWS)
+#else
+#include <execinfo.h>
+#include <dlfcn.h>
+#include <cxxabi.h>
+#endif
+
+#if defined(WINDOWS)
+
+// WINDOWS
 namespace ven {
 
   class SymbolFinder
@@ -217,3 +227,69 @@ namespace ven {
   };
 
 }
+
+
+#else
+
+// LINUX
+namespace ven {
+
+  class StackTrace
+  {
+  public:
+    StackTrace() {}
+
+    ~StackTrace() {}
+
+    std::string trace(int32_t depth = 64)
+    {
+      CharArray<8192> carr;
+
+      void* callstack[depth];
+      int size = backtrace(callstack, depth);
+      char** symbols = backtrace_symbols(callstack, size);
+
+      for (int i = 0; i < size && i < depth; ++i) {
+        Dl_info info;
+        if (dladdr(callstack[i], &info) && info.dli_sname) {
+          char* demangled = nullptr;
+          int status = -1;
+          if (info.dli_sname[0] == '_') {
+            demangled = abi::__cxa_demangle(info.dli_sname, nullptr, 0, &status);
+          }
+          const char* symbol = nullptr;
+          if (status == 0) {
+            symbol = demangled;
+          }
+          else {
+            if (info.dli_sname == 0) {
+              symbol = symbols[i];
+            }
+            else {
+              symbol = info.dli_sname;
+            }
+          }
+
+          carr.add(
+            "0x%016X  %s + %zd\n",
+            callstack[i], symbol,
+            static_cast<char*>(callstack[i]) - static_cast<char*>(info.dli_saddr)
+          );
+        }
+        else {
+          carr.add(
+            "0x%016X  %s\n",
+            callstack[i],
+            symbols[i]
+          );
+        }
+      }
+
+      return carr;
+    }
+
+  };
+
+}
+#endif
+

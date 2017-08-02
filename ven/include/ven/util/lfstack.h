@@ -14,7 +14,7 @@ namespace ven {
     struct Data
     {
       T* ptr_ = nullptr;
-      size_t pop_cnt_ = 0;
+      std::size_t pop_cnt_ = 0;
     };
 
     Data* head_ = nullptr;
@@ -43,13 +43,13 @@ namespace ven {
     void push(T* n)
     {
       while (true) {
-         T* ptr = head_->ptr_;
-         n->next_ = ptr;
+        T* ptr = head_->ptr_;
+        n->next_ = ptr;
         if (InterlockedCompareExchangePointer(
-          (PVOID*)&head_->ptr_,
-          (PVOID)n,
-          (PVOID)ptr
-        ) == (PVOID)ptr) {
+          (void**)&head_->ptr_,
+          (void*)n,
+          (void*)ptr
+        ) == (void*)ptr) {
           cnt_++;
           break;
         }

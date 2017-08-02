@@ -26,7 +26,7 @@ namespace ven {
       return *this;
     }
 
-    CharArray& add(char* format, ...)
+    CharArray& add(const char* format, ...)
     {
       if (pos_ == -1) {
         return *this;
@@ -34,12 +34,17 @@ namespace ven {
 
       va_list list;
       va_start(list, format);
+#if defined(WINDOWS)
       int ret = vsnprintf_s(arr_ + pos_, size - pos_, size - pos_ - 1, format, list);
+#else
+      int ret = vsnprintf(arr_ + pos_, size - pos_, format, list);
+#endif
       va_end(list);
-      
+
       if (ret == -1) {
         pos_ = -1;
-      } else {
+      }
+      else {
         pos_ += ret;
       }
       return *this;

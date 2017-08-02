@@ -1,7 +1,19 @@
 ﻿#pragma once
 
-#define WIN32_LEAN_AND_MEAN
+#if defined(_WIN32)
+#	define WINDOWS
+#elif defined(__linux__)
+#	define LINUX
+#elif defined(__unix__)
+#	error not implemented
+#elif defined(__APPLE__)
+#	error not implemented
+#else
+#	error not implemented
+#endif
 
+
+#define WIN32_LEAN_AND_MEAN
 
 #ifndef _WINSOCKAPI_
 #include <winsock2.h>
@@ -21,17 +33,20 @@
 #pragma comment(lib,"DbgHelp.Lib")
 
 #include <stdint.h>
+#include <conio.h>
 #include <string>
+#include <sstream>
 #include <deque>
 #include <vector>
 #include <map>
-#include <set>
 #include <unordered_map>
+#include <set>
 #include <unordered_set>
 #include <functional>
 #include <algorithm>
+#include <thread>
 #include <atomic>
-#include <conio.h>
+#include <chrono>
 
 #include "cpu.h"
 #include "elapsed_timer.h"
@@ -52,7 +67,7 @@
 
 
 #include "char_array.h"
-#include "file.h"
+//#include "file.h"
 #include "stack_trace.h"
 #include "crash_dump.h"
 

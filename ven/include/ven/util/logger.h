@@ -13,7 +13,7 @@ namespace ven {
     };
 
 
-    static char* str(LogLevel level)
+    static const char* str(LogLevel level)
     {
       switch (level)
       {
@@ -30,7 +30,7 @@ namespace ven {
     class LogInfo
     {
     public:
-      int32_t tid_ = 0;
+      uint64_t tid_ = 0;
       const char* func_;
       const char* file_;
       const char* filename_;
@@ -45,29 +45,27 @@ namespace ven {
     class LogFile
     {
     private:
-      FILE* file_ = nullptr;
-      std::wstring path_;
+      std::FILE* file_ = nullptr;
+      std::string path_;  // utf-8
 
       uint64_t size_ = 0;
 
     public:
       LogFile() {}
 
-      ~LogFile()
-      {
-        close();
-      }
+      ~LogFile() { close(); }
 
-      uint64_t size()
-      {
-        return size_;
-      }
+      uint64_t size() { return size_; }
 
-      void open(const std::wstring& path)
+      operator bool() { return valid(); }
+
+      bool valid() { return (file_ != nullptr); }
+
+      void open(const std::string& path)
       {
         close();
         path_ = path;
-        file_ = _wfsopen(path.c_str(), L"ab", _SH_DENYWR);
+        file_ = open_file();
         if (file_) {
           fseek(file_, 0L, SEEK_END);
           size_ = std::ftell(file_);
@@ -105,21 +103,27 @@ namespace ven {
         }
       }
 
-      operator bool() { return valid(); }
-
-      bool valid() { return (file_ != nullptr); }
+    private:
+      std::FILE* open_file()
+      {
+#if defined(WINDOWS)
+        return _fsopen(path_.c_str(), "ab", _SH_DENYWR);
+#else
+        return std::fopen(path_.c_str(), "a");
+#endif
+      }
     };
 
 
     class LogEvent
     {
     public:
-      const bool has_console_ = has_console();
+      const bool has_console_ = ven::has_console();
 
     private:
       bool use_console_ = true;
-      bool async_ = false;
       LogLevel level_ = LogLevel::Debug;
+      bool async_ = false;
 
     public:
       LogEvent(
@@ -127,8 +131,8 @@ namespace ven {
         bool use_console = true,
         bool async = false
       )
-        : level_(level)
-        , use_console_(use_console)
+        : use_console_(use_console)
+        , level_(level)
         , async_(async)
       {}
 
@@ -143,7 +147,7 @@ namespace ven {
         CharArray<1024> arr;
         arr.add(
           "[%04d-%02d-%02d %02d:%02d:%02d.%03d %p %s] %s (%s:%d)\r\n",
-          info.time_.year_, info.time_.month_, info.time_.day_,
+          info.time_.year_, info.time_.mon_, info.time_.day_,
           info.time_.hour_, info.time_.min_, info.time_.sec_, info.time_.msec_,
           info.tid_, str(info.level_),
           info.msg_.c_str(),
@@ -163,15 +167,15 @@ namespace ven {
     class ILogger
     {
     public:
-      virtual void log(const char* func, const char* file, int32_t line, LogLevel level, char* msg) = 0;
+      virtual void log(const char* func, const char* file, int32_t line, LogLevel level, const char* msg) = 0;
       virtual void write(LogInfo& info) = 0;
     };
 
     class Log
     {
     public:
-      LogLevel level_ = LogLevel::Off;
       ILogger* logger_ = nullptr;
+      LogLevel level_ = LogLevel::Off;
       const char* func_ = nullptr;
       const char* file_ = nullptr;
       int32_t line_ = 0;
@@ -191,7 +195,7 @@ namespace ven {
       {}
 
       template <size_t size = 1024>
-      void operator()(char* format, ...)
+      void operator()(const char* format, ...)
       {
         if (!logger_ || level_ == LogLevel::Off) {
           return;
@@ -200,7 +204,11 @@ namespace ven {
         char buf[size] = { 0, };
         va_list list;
         va_start(list, format);
+#if defined(WINDOWS)
         vsnprintf_s(buf, size, size - 1, format, list);
+#else
+        vsnprintf(buf, size - 1, format, list);
+#endif
         va_end(list);
 
         logger_->log(func_, file_, line_, level_, buf);
@@ -234,7 +242,7 @@ namespace ven {
       {
         while (true) {
           loop();
-          Sleep(1);
+          ven::sleep(1);
         }
       }
 
@@ -303,10 +311,10 @@ namespace ven {
       }
 
     private:
-      virtual void log(const char* func, const char* file, int32_t line, LogLevel level, char* msg)
+      virtual void log(const char* func, const char* file, int32_t line, LogLevel level, const char* msg)
       {
         LogInfo info;
-        info.tid_ = ::GetCurrentThreadId();
+        info.tid_ = tid();
         info.func_ = func;
         info.file_ = file;
         info.filename_ = filename(file);
@@ -317,7 +325,8 @@ namespace ven {
 
         if (is_async()) {
           th_->add(info);
-        } else {
+        }
+        else {
           write(info);
         }
       }
@@ -352,12 +361,12 @@ namespace ven {
         }
       }
 
-      std::wstring path(Time& t)
+      std::string path(Time& t)
       {
         return make_str(
-          L"%s_%04d%02d%02d_%02d%02d.log",
-          binary_wpath().c_str(),
-          t.year_, t.month_, t.day_, t.hour_, t.min_
+          "%s_%04d%02d%02d_%02d%02d.log",
+          binary_path().c_str(),
+          t.year_, t.mon_, t.day_, t.hour_, t.min_
         );
       }
 
@@ -401,7 +410,7 @@ namespace ven {
         , cnt_(cnt)
       {}
 
-      std::wstring path()
+      std::string path()
       {
         cur_cnt_++;
         if (cur_cnt_ > cnt_) {
@@ -409,20 +418,20 @@ namespace ven {
         }
 
         return make_str(
-          L"%s_%02d.log",
-          binary_wpath().c_str(),
+          "%s_%02d.log",
+          binary_path().c_str(),
           cur_cnt_
         );
       }
 
       virtual void write(LogFile& file, LogInfo& info) override
       {
-        // 처음 호출된 경우
+        // first time call
         if (!file) {
           file.open(path());
         }
 
-        // 용량 초과한 경우
+        // exceeed file size
         if (file.size() >= size_) {
           file.open(path());
         }

@@ -1,17 +1,19 @@
 ﻿#pragma once
 
+#if defined(WINDOWS)
+
 #include <intrin.h>
 #include <signal.h>
 #include <new.h>
 
-namespace ven {
+namespace ven { // WINDOWS
 
   class CrashDump
   {
   private:
     static const DWORD EXCEPTION_THROW_EXCEPTION = 0xE06D7363;
 
-    
+
     static const DWORD EXCEPTION_INVALID_PARAMETER = 0xFFFFFFF1;
     static const DWORD EXCEPTION_PURE_CALL = 0xFFFFFFF2;
     static const DWORD EXCEPTION_OUT_OF_MEMORY = 0xFFFFFFF3;
@@ -39,7 +41,8 @@ namespace ven {
         if (path.empty()) {
           base_path_ = binary_wpath();
 
-        } else {
+        }
+        else {
           mkdir(path);
 
           base_path_ = make_str(
@@ -55,7 +58,8 @@ namespace ven {
       {
         if (full_dump) {
           type_ = MiniDumpWithFullMemory | MiniDumpWithFullMemoryInfo | MiniDumpWithThreadInfo;
-        } else {
+        }
+        else {
           type_ = MiniDumpNormal;
         }
       }
@@ -71,6 +75,89 @@ namespace ven {
       RunParam(EXCEPTION_POINTERS* ep, Conf& conf)
         : ep_(ep), conf_(conf)
       {}
+    };
+
+    class File
+    {
+    private:
+      HANDLE handle_ = INVALID_HANDLE_VALUE;
+    public:
+      File() {}
+
+      File(HANDLE handle)
+      {
+        handle_ = handle;
+      }
+
+      File(const std::wstring& path)
+      {
+        open(path);
+      }
+
+      ~File()
+      {
+        close();
+      }
+
+      void open(const std::wstring& path)
+      {
+        close();
+        handle_ = CreateFileW(
+          path.c_str(),
+          GENERIC_WRITE,
+          0,
+          NULL,
+          CREATE_ALWAYS,
+          FILE_FLAG_WRITE_THROUGH,
+          NULL
+        );
+      }
+
+      void close()
+      {
+        if (valid()) {
+          CloseHandle(handle_);
+          handle_ = INVALID_HANDLE_VALUE;
+        }
+      }
+
+      void write(const std::string& content)
+      {
+        if (!valid()) return;
+
+        DWORD writed = 0;
+        WriteFile(
+          handle_,
+          content.c_str(),
+          static_cast<DWORD>(content.size()),
+          &writed,
+          0
+        );
+        FlushFileBuffers(handle_);
+      }
+
+      template <int size>
+      void write(CharArray<size>& carr)
+      {
+        if (!valid()) return;
+
+        DWORD writed = 0;
+        WriteFile(
+          handle_,
+          carr.ch(),
+          static_cast<DWORD>(carr.len()),
+          &writed,
+          0
+        );
+        FlushFileBuffers(handle_);
+      }
+
+      operator HANDLE() { return handle_; }
+
+      operator bool() { return valid(); }
+
+      bool valid() { return (handle_ != INVALID_HANDLE_VALUE); }
+
     };
 
   public:
@@ -213,10 +300,11 @@ namespace ven {
 
         HANDLE handle = reinterpret_cast<HANDLE>(
           _beginthreadex(0, 0, (unsigned(__stdcall*)(void*))run, &param, 0, 0)
-        );
+          );
         WaitForSingleObject(handle, INFINITE);
         CloseHandle(handle);
-      } else {
+      }
+      else {
         run(&param);
       }
     }
@@ -266,7 +354,8 @@ namespace ven {
         info_file.write(
           CharArray<256>().add("\n\nfail open dump file : %d\n\n", GetLastError())
         );
-      } else {
+      }
+      else {
 
         MINIDUMP_EXCEPTION_INFORMATION info;
         info.ThreadId = GetCurrentThreadId();
@@ -411,3 +500,17 @@ namespace ven {
   };
 
 }
+
+#else
+namespace ven { // LINUX
+  class CrashDump
+  {
+  public:
+    static void install(const std::wstring& base_dir = L"", bool full_dump = false) {}
+    static void install_thread() {}
+    static void full_dump() {}
+  };
+
+}
+#endif
+

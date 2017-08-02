@@ -1,29 +1,32 @@
 ﻿#pragma once
 
-#include <shellapi.h>
-
 /*
+** description
+  콘솔 실행 시 - 프로그램에서 받은 인자 및 main 스레드 사용
+  윈도우 서비스 실행 시 - 첫번째 인자는 서비스 이름. on_runing은 별도 스레드.
+
 ** example
-  class Server : public WinService::Event
+  class Server : public ven::WinService::Event
   {
   public:
-    void run() { WinService::run(this); }
-
-    virtual bool on_init(int argc, wchar_t** argv) override {return true; }
+    virtual bool on_init(int argc, char** argv) override { return true; }
     virtual bool on_running() override
     {
-      Sleep(100);
-      return true;
+    ven::sleep(100);
+    return true;
     }
     virtual void on_uninit() override {}
   };
 
-  Server().run();
+  int main(int argc, char* argv[])
+  {
+    Server svr;
+    return ven::WinService::run(svr, argc, argv) ? 0 : -1;
+  }
 
 ** 윈도우 서비스 등록/삭제 콘솔 명령 (관리자 권한)
   등록> sc create VEN binpath= "C:\bin\ven.exe" displayname= "VEN" start= auto type= own
   설명> sc description VEN "ven description"
-
   삭제> sc delete VEN
 
 */
@@ -37,13 +40,13 @@ namespace ven {
     {
     public:
       // 서비스 시작시 호출. return fasle 시 중단
-      virtual bool on_init(int32_t argc, wchar_t** argv) { return true; }
+      virtual bool on_init(int32_t argc, char** argv) { return true; }
 
       // 서비스 수행중 호출. 별도 스레드에서 while 문으로 호출되므로 Sleep 필요
       // return fasle 시 중단
       virtual bool on_running()
       {
-        Sleep(100);
+        ven::sleep(100);
         return true;
       }
 
@@ -52,37 +55,67 @@ namespace ven {
     };
 
   private:
-    struct Conf
+#if defined(WINDOWS)
+    class Conf
     {
-      const bool has_console_ = ven::has_console();
+    public:
       Event* evt_ = nullptr;
+      int argc_ = 0;
+      char** argv_ = nullptr;
+
+      const bool has_console_ = ven::has_console();
+
       SERVICE_STATUS_HANDLE handle_ = NULL;
       DWORD state_ = SERVICE_STOPPED;
     };
+#endif
 
   public:
-    static bool run(Event* evt)
+    static bool run(Event& evt, int argc = 0, char** argv = nullptr)
     {
+#if defined(WINDOWS)
       Conf& c = conf();
-      c.evt_ = evt;
+      c.evt_ = &evt;
+      c.argc_ = argc;
+      c.argv_ = argv;
 
       if (c.has_console_) {
-        int argc = 0;
-        wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-        service_main(argc, argv);
+        service_main(c.argc_, c.argv_);
       }
       else {
-        SERVICE_TABLE_ENTRYW table[] = {
-          { L"", (LPSERVICE_MAIN_FUNCTIONW)service_main },
+        SERVICE_TABLE_ENTRYA table[] = {
+          { "", (LPSERVICE_MAIN_FUNCTIONA)service_main },
           { NULL, NULL }
         };
-        return (StartServiceCtrlDispatcherW(table) == FALSE);
+        return (StartServiceCtrlDispatcherA(table) == FALSE);
       }
+#else
+      // init
+      if (!evt.on_init(argc, argv)) {
+        evt.on_uninit();
+        return false;
+      }
+
+      // running
+      bool has_console = ven::has_console();
+      while (evt.on_running()) {
+        if (has_console) {
+
+          int ch = ven::linux_kbhit();
+          if (ch == 27) { //ESC
+            break;
+          }
+        }
+      }
+
+      // uninit
+      evt.on_uninit();
+#endif
 
       return true;
     }
 
-
+#if defined(WINDOWS)
   private:
     static Conf& conf()
     {
@@ -106,21 +139,15 @@ namespace ven {
       conf().state_ = state;
     }
 
-    static void WINAPI service_main(int32_t argc, wchar_t** argv)
+    static void WINAPI service_main(int32_t argc, char** argv)
     {
 
       Event* evt = conf().evt_;
 
-      /*
-      윈도우 서비스 실행 시
-      첫번째 인자는 서비스 이름 및 별도 스레드에서 동작함
-      콘솔 실행 시
-      프로그램에서 받은 인자 및 main 스레드 사용
-      */
       if (!conf().has_console_) {
         SERVICE_STATUS_HANDLE& handle = conf().handle_;
         handle = RegisterServiceCtrlHandlerW(L"", handler);
-        if (handle == NULL) {
+        if (handle == nullptr) {
           evt->on_uninit();
           return;
         }
@@ -177,6 +204,7 @@ namespace ven {
         break;
       }
     }
+#endif
   };
 
 }

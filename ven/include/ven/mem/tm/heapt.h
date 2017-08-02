@@ -28,7 +28,7 @@ namespace ven {
       std::vector<uint8_t*> p_;
 
       Map map_;
-      int32_t tid_;
+      //int32_t tid_;
 
     public:
       Heapt(MemAlloc& alloc, Heap& heap)

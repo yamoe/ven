@@ -14,19 +14,24 @@ namespace ven {
     public:
       MemList free_;
 
-      std::atomic<uint32_t> total_ = 0;
+      std::atomic<uint32_t> total_{ 0 };
       uint32_t init_cnt_ = 0;
       uint32_t step_cnt_ = 0;  //증가량
       uint32_t del_cnt_ = 0;  //증가량
+
+    public:
+      Mems() {}
+      Mems(const Mems& m) {}
     };
+
     typedef std::map<uint32_t, Mems> Map;
 
     SLock lock_;
     Map map_;
     uint32_t max_unit_ = 0;
 
-    std::atomic<uint32_t> exceed_new_ = 0;
-    std::atomic<uint32_t> exceed_del_ = 0;
+    std::atomic<uint32_t> exceed_new_{ 0 };
+    std::atomic<uint32_t> exceed_del_{ 0 };
 
   public:
     MemPool() {}
@@ -64,12 +69,12 @@ namespace ven {
 
     virtual Buf get(uint32_t size) override
     {
-      if (size > max_unit_)
-      {
+      if (size > max_unit_) {
         return new_mem(size);
       }
 
-      auto& kv = map_.lower_bound(size);
+      //auto& kv = map_.lower_bound(size);
+      auto kv = map_.lower_bound(size);
       uint32_t unit = kv->first;
       Mems& mems = kv->second;
 
@@ -87,8 +92,7 @@ namespace ven {
 
     virtual void ret(Mem* mem) override
     {
-      if (mem->unit_ > max_unit_)
-      {
+      if (mem->unit_ > max_unit_) {
         del_mem(mem);
         return;
       }

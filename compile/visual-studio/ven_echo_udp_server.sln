@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_server", "sample\ven_echo_udp_server\ven_echo_udp_server.vcxproj", "{0B6F0417-B053-4835-AE13-985FEE27DB77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ven_echo_udp_server", "..\..\ven-example\ven_echo_udp_server\ven_echo_udp_server.vcxproj", "{0B6F0417-B053-4835-AE13-985FEE27DB77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

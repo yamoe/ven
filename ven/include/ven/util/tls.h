@@ -1,8 +1,10 @@
 ﻿#pragma once
 
+#if defined(WINDOWS)
+
 namespace ven {
 
-  template <class T = void*>
+  template <class T = void>
   class Tls {
   private:
     DWORD idx_ = TLS_OUT_OF_INDEXES;
@@ -53,3 +55,29 @@ namespace ven {
 
 }
 
+#else
+
+namespace ven {
+
+  template <class T = void>
+  class Tls {
+  private:
+    static thread_local T* ptr_;
+
+  public:
+    void set(T* val)
+    {
+      ptr_ = val;
+    }
+
+    T* get()
+    {
+      return ptr_;
+    }
+  };
+
+  template <class T> thread_local T* Tls<T>::ptr_ = nullptr;
+
+}
+
+#endif
