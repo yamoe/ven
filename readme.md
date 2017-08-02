@@ -1,4 +1,4 @@
-
+ï»¿
 ## ven
 * tcp, udp using iocp
 * visual studio solution file : compile/visual-studio/ven.sln
@@ -17,7 +17,7 @@
 > cmake -G"Visual Studio 15 2017 Win64" ..
 ```
 
-## Arimasen Intelligence (AI) ¤µ¤µ
+## Arimasen Intelligence (AI)
 * ven
 	- friday (french)
 	- venerable
