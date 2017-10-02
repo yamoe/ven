@@ -118,7 +118,7 @@ namespace ven {
   static std::wstring m2w(const std::string& in)
   {
     int len = ::MultiByteToWideChar(CP_ACP, 0, in.c_str(), -1, 0, 0);
-    std::wstring out(len, 0);
+    std::wstring out(len - 1, 0);
     ::MultiByteToWideChar(CP_ACP, 0, in.c_str(), -1, const_cast<wchar_t*>(out.c_str()), len);
     return out;
   }
@@ -127,7 +127,7 @@ namespace ven {
   static std::string w2m(const std::wstring& in)
   {
     int len = ::WideCharToMultiByte(CP_ACP, 0, in.c_str(), -1, 0, 0, 0, 0);
-    std::string out(len, 0);
+    std::string out(len - 1, 0);
     ::WideCharToMultiByte(CP_ACP, 0, in.c_str(), -1, const_cast<char*>(out.c_str()), len, 0, 0);
     return out;
   }
@@ -136,7 +136,7 @@ namespace ven {
   static std::string w2u(const std::wstring& in)
   {
     int len = ::WideCharToMultiByte(CP_UTF8, 0, in.c_str(), -1, 0, 0, 0, 0);
-    std::string out(len, 0);
+    std::string out(len - 1, 0);
     ::WideCharToMultiByte(CP_UTF8, 0, in.c_str(), -1, const_cast<char*>(out.c_str()), len, 0, 0);
     return out;
   }
@@ -145,7 +145,7 @@ namespace ven {
   static std::wstring u2w(const std::string& in)
   {
     int len = ::MultiByteToWideChar(CP_UTF8, 0, in.c_str(), -1, 0, 0);
-    std::wstring out(len, 0);
+    std::wstring out(len -1 , 0);
     ::MultiByteToWideChar(CP_UTF8, 0, in.c_str(), -1, const_cast<wchar_t*>(out.c_str()), len);
     return out;
   }
