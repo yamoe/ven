@@ -70,12 +70,12 @@ int main()
     });
     mpool = mp;
   } else {
-    // TLS 를 사용하는 방식
-    ven::tm::TlsMemPool* mp = new ven::tm::TlsMemPool;
-    mp->init({
-      { 8 * 1024,{ 1000, 100, 10 } }, // 8k 1000개,  100 개씩 Heap에서 가져옴, 스레드에 10개가 반납되면 Heap으로 모두 반납. 모자란 경우 초기 값인 1000 개 만큼 증가
-    });
-    mpool = mp;
+    //// TLS 를 사용하는 방식
+    //ven::tm::TlsMemPool* mp = new ven::tm::TlsMemPool;
+    //mp->init({
+    //  { 8 * 1024,{ 1000, 100, 10 } }, // 8k 1000개,  100 개씩 Heap에서 가져옴, 스레드에 10개가 반납되면 Heap으로 모두 반납. 모자란 경우 초기 값인 1000 개 만큼 증가
+    //});
+    //mpool = mp;
   }
 
   // Net 생성

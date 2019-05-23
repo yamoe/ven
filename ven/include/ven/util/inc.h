@@ -17,8 +17,17 @@
 
 #ifndef _WINSOCKAPI_
 #include <winsock2.h>
+#endif
+
+#ifndef _WS2TCPIP_H_
 #include <ws2tcpip.h>
+#endif
+
+#ifndef _MSWSOCK_
 #include <mswsock.h>
+#endif
+
+#ifndef _WINDOWS_
 #include <windows.h>
 #endif
 

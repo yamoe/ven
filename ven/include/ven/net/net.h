@@ -115,7 +115,7 @@ namespace ven {
 
       tcp_clis_.erase(reinterpret_cast<Session*>(s));
       s->disconnect(true);
-      s = nullptr;
+	  s = nullptr;
     }
 
     template <class SessionT>
@@ -236,7 +236,8 @@ namespace ven {
 
       // thread
       for (auto& th : ths_) {
-        th->join();
+        //th->join();
+		ven::sleep(10);
         delete th;
       }
 

@@ -35,7 +35,19 @@ namespace ven {
 
   public:
     MemPool() {}
-    virtual ~MemPool() {}
+    virtual ~MemPool()
+	{
+		for (auto& kv : map_) {
+			Mems& mems = kv.second;
+
+			while (true) {
+				Mem* mem = mems.free_.pop();
+				if (!mem) break;
+				free(mem->addr_);
+				delete mem;
+			}
+		}
+	}
 
     void init(MemPoolConf conf = MemPoolConf())
     {

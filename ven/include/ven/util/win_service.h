@@ -31,6 +31,10 @@
 
 */
 
+#ifndef _WINSVC_
+#include <winsvc.h>
+#endif
+
 namespace ven {
 
   class WinService

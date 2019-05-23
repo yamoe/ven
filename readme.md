@@ -7,7 +7,6 @@
 
 ## development environment
 * visual studio 2017, c++11
-* test client : http://www.cgcii.co.kr/index.php?mid=board_eLHH13&document_srl=1936
 
 
 ## cmake (test)

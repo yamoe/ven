@@ -12,10 +12,10 @@
 
 #include "mem_pool.h"
 
-#include "tm/type.h"
-#include "tm/objs.h"
-#include "tm/mem_alloc.h"
-#include "tm/heap.h"
-#include "tm/heapt.h"
-#include "tm/heapt_list.h"
-#include "tm/tls_mem_pool.h"
+//#include "tm/type.h"
+//#include "tm/objs.h"
+//#include "tm/mem_alloc.h"
+//#include "tm/heap.h"
+//#include "tm/heapt.h"
+//#include "tm/heapt_list.h"
+//#include "tm/tls_mem_pool.h"
